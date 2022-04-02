@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PTsafe</string>
+    <string name="menu_home">home</string>
+    <string name="menu_detect_crowding">detect crowding</string>
+    <string name="menu_news">news</string>
+    <string name="menu_emergency_call">emergency call</string>
+    <string name="Open">open</string>
+    <string name="Close">close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
