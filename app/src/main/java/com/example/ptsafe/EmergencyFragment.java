@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ptsafe.R;
@@ -37,6 +38,16 @@ public class EmergencyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the View for this fragment
         View view = inflater.inflate(R.layout.fragment_emergency, container, false);
+
+        TextView textView1=(TextView)view.findViewById(R.id.textView1);
+        textView1.setText("Victorian Centres Against Sexual Assault (CASA)");
+        TextView textView2=(TextView)view.findViewById(R.id.textView2);
+        textView2.setText("Crisis support and suicide prevention");
+        TextView textView3=(TextView)view.findViewById(R.id.textView3);
+        textView3.setText("Sexual assault crisis line");
+
+
+
         call = view.findViewById(R.id.call1);
         call.setOnClickListener(new View.OnClickListener() {
             @Override

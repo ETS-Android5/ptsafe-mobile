@@ -20,7 +20,7 @@
             android:layout_width="312dp"
             android:layout_height="75dp"
             android:background="#E8E7E7"
-            android:text="Victorian Centres Against Sexual Assault (CASA)" />
+            android:text="" />
 
         <FrameLayout
             android:layout_width="97dp"
@@ -56,7 +56,7 @@
             android:layout_width="312dp"
             android:layout_height="75dp"
             android:background="#E8E7E7"
-            android:text="Crisis support and suicide prevention" />
+            android:text="" />
 
         <FrameLayout
             android:layout_width="97dp"
@@ -92,7 +92,7 @@
             android:layout_width="312dp"
             android:layout_height="75dp"
             android:background="#E8E7E7"
-            android:text="Sexual assault crisis line" />
+            android:text="" />
 
         <FrameLayout
             android:layout_width="97dp"
