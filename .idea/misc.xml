@@ -3,23 +3,33 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/button_shape.xml" value="0.1" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/comment_rv_shape.xml" value="0.10648148148148148" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/crowd_detection_view_shape.xml" value="0.1" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/crowding_detection_view_shape.xml" value="0.1" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/dropdown_shape.xml" value="0.10648148148148148" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/news_rv_shape.xml" value="0.1" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/side_nav_bar.xml" value="0.11018518518518519" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_add_comments.xml" value="0.2222222222222222" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_add_news.xml" value="0.2222222222222222" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_main.xml" value="0.253125" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_news_details.xml" value="0.2222222222222222" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_show_crowd.xml" value="0.2222222222222222" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_splash.xml" value="0.1111111111111111" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/comment_rv_layout.xml" value="0.2977777777777778" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/content_main.xml" value="0.1" />
-        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_crowding_detect.xml" value="0.17753623188405798" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/emergency_rv_layout.xml" value="0.2977777777777778" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_crowding_detect.xml" value="0.2222222222222222" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_emergency.xml" value="0.17753623188405798" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_home.xml" value="0.2977777777777778" />
-        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_news.xml" value="0.17753623188405798" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_news.xml" value="0.2977777777777778" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/home_fragment.xml" value="0.19947916666666668" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/nav_header.xml" value="0.14666666666666667" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/news_details.xml" value="0.1693840579710145" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/news_rv_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/menu/navigation_menu.xml" value="0.1" />
-        <entry key="..\:/Users/lan yang/StudioProjects/ptsafe-mobile/app/src/main/res/drawable-mdpi/shape.xml" value="0.2355" />
-        <entry key="..\:/Users/lan yang/StudioProjects/ptsafe-mobile/app/src/main/res/drawable/side_nav_bar.xml" value="0.2355" />
-        <entry key="..\:/Users/lan yang/StudioProjects/ptsafe-mobile/app/src/main/res/layout/fragment_emergency.xml" value="0.2" />
-        <entry key="..\:/Users/lan yang/StudioProjects/ptsafe-mobile/app/src/main/res/layout/fragment_news.xml" value="0.1125" />
-        <entry key="..\:/Users/lan yang/StudioProjects/ptsafe-mobile/app/src/main/res/layout/shape.xml" value="0.23958333333333334" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/xml/file_paths.xml" value="0.1046875" />
       </map>
     </option>
   </component>

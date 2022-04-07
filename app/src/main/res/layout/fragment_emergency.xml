@@ -7,113 +7,14 @@
     android:backgroundTint="#BD1515"
     tools:context="HomeFragment">
 
-    <FrameLayout
-        android:layout_width="311dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="252dp"
-        android:layout_marginEnd="48dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/emergency_rv"
+        android:layout_width="403dp"
+        android:layout_height="666dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="312dp"
-            android:layout_height="75dp"
-            android:background="#E8E7E7"
-            android:text="" />
-
-        <FrameLayout
-            android:layout_width="97dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/call1"
-                android:layout_width="98dp"
-                android:layout_height="45dp"
-
-                android:backgroundTint="#8BC34A"
-                android:text="Call now"
-                android:textColor="#236509"
-                android:textSize="10dp"
-                tools:ignore="MissingConstraints" />
-        </FrameLayout>
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="311dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="312dp"
-            android:layout_height="75dp"
-            android:background="#E8E7E7"
-            android:text="" />
-
-        <FrameLayout
-            android:layout_width="97dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/call2"
-                android:layout_width="98dp"
-                android:layout_height="45dp"
-
-                android:backgroundTint="#8BC34A"
-                android:text="Call now"
-                android:textColor="#236509"
-                android:textSize="10dp"
-                tools:ignore="MissingConstraints" />
-        </FrameLayout>
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="311dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="47dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="312dp"
-            android:layout_height="75dp"
-            android:background="#E8E7E7"
-            android:text="" />
-
-        <FrameLayout
-            android:layout_width="97dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/call3"
-                android:layout_width="98dp"
-                android:layout_height="45dp"
-
-                android:backgroundTint="#8BC34A"
-                android:text="Call now"
-                android:textColor="#236509"
-                android:textSize="10dp"
-                tools:ignore="MissingConstraints" />
-        </FrameLayout>
-
-    </FrameLayout>
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

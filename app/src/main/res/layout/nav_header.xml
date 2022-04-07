@@ -11,5 +11,5 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/ptsafe"
         android:translationX="82dp"
-        android:translationY="15dp" />
+        android:translationY="40dp" />
 </LinearLayout>
