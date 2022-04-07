@@ -9,18 +9,22 @@ public class News {
    private String newsContent;
    private String imageUrl;
    private String newsUrl;
+   private String newsLocation;
+   private Integer newsPostCode;
 
    public News(){
 
    }
 
-   public News(String newsId, String newsTitle, String newsLabel, String newsContent, String imageUrl, String newsUrl) {
+   public News(String newsId, String newsTitle, String newsLabel, String newsContent, String imageUrl, String newsUrl, String newsLocation, Integer newsPostCode) {
       this.newsId = newsId;
       this.newsTitle = newsTitle;
       this.newsLabel = newsLabel;
       this.newsContent = newsContent;
       this.imageUrl = imageUrl;
       this.newsUrl = newsUrl;
+      this.newsLocation = newsLocation;
+      this.newsPostCode=  newsPostCode;
    }
 
    public String getNewsId() {
@@ -69,5 +73,21 @@ public class News {
 
    public void setNewsUrl(String newsUrl) {
       this.newsUrl = newsUrl;
+   }
+
+   public String getNewsLocation() {
+      return newsLocation;
+   }
+
+   public void setNewsLocation(String newsLocation) {
+      this.newsLocation = newsLocation;
+   }
+
+   public Integer getNewsPostCode() {
+      return newsPostCode;
+   }
+
+   public void setNewsPostCode(int newsPostCode) {
+      this.newsPostCode = newsPostCode;
    }
 }

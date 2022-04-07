@@ -84,7 +84,7 @@ public class NewsFragment extends Fragment {
                     case "tech":
                         if (techNewsItems == null) {
                             techNewsItems = newsItems.stream()
-                                    .filter(n -> n.getNewsLabel().equals("transport")).collect(Collectors.toList());
+                                    .filter(n -> n.getNewsLabel().equals("tech")).collect(Collectors.toList());
                         }
                         setOnClickListener(techNewsItems);
                         adapter = new NewsAdapter(techNewsItems, listener);
@@ -172,13 +172,16 @@ public class NewsFragment extends Fragment {
                         String newsContent = obj.getString("news_content");
                         String imageUrl = obj.getString("image_url");
                         String newsUrl = obj.getString("news_url");
-                        News newNews = new News(newsId, newsTitle, newsLabel, newsContent, imageUrl, newsUrl);
+                        String newsLocation = obj.optString("news_location");
+                        Integer newsPostcode = obj.optInt("news_postcode");
+                        News newNews = new News(newsId, newsTitle, newsLabel, newsContent, imageUrl, newsUrl, newsLocation, newsPostcode);
                         newsData.add(newNews);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
                 newsItems = newsData;
+                Log.i("string", String.valueOf(newsData.size()));
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
