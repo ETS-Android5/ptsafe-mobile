@@ -24,6 +24,7 @@
         affects commuters in a crowded public transportations, it is better to check the crowdedness level
         on your surroundings.
     </string>
+    <string name="welcome_home">Hello User!</string>
     <string name="take_photo">take a photo</string>
     <string name="back_menu">back to main menu</string>
     <string-array name="news_tags">
