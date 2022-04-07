@@ -57,4 +57,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/news_image"
         app:layout_constraintTop_toBottomOf="@+id/news_short_content" />
+
+    <TextView
+        android:id="@+id/news_tag_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="33dp"
+        android:text="label"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toStartOf="@+id/read_more_btn"
+        app:layout_constraintStart_toEndOf="@+id/news_image"
+        app:layout_constraintTop_toBottomOf="@+id/news_short_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

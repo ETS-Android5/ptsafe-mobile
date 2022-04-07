@@ -1,6 +1,7 @@
 package com.example.ptsafe.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>  {
         public ImageView newsImageIv;
         public TextView newsTitleTv;
         public TextView newsShortContentTv;
+        public TextView newsLabelTv;
         public Button newsButton;
 
         //news view holder constructors
@@ -34,6 +36,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>  {
             super(itemView);
             newsImageIv = itemView.findViewById(R.id.news_image);
             newsTitleTv = itemView.findViewById(R.id.news_title);
+            newsLabelTv = itemView.findViewById(R.id.news_tag_tv);
             newsShortContentTv =itemView.findViewById(R.id.news_short_content);
             newsButton = itemView.findViewById(R.id.read_more_btn);
 
@@ -84,5 +87,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>  {
         Picasso.get().load(item.getImageUrl()).into(viewHolder.newsImageIv);
         TextView newsContentTv =viewHolder.newsShortContentTv;
         newsContentTv.setText(item.getNewsContent());
+        TextView newsLabelTv = viewHolder.newsLabelTv;
+        setNewsLabelColor(item.getNewsLabel(), newsLabelTv);
+    }
+
+    private void setNewsLabelColor(String newsLabel, TextView tv) {
+        if (newsLabel.equals("crime")) {
+            tv.setTextColor(Color.RED);
+        }
+        else {
+            tv.setTextColor(Color.BLUE);;
+        }
+        tv.setText(newsLabel);
     }
 }
