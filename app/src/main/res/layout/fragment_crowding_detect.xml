@@ -6,12 +6,83 @@
     android:layout_height="match_parent"
     tools:context="HomeFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Crowding detect fragment"
+    <View
+        android:id="@+id/crowding_detection_view"
+        android:layout_width="0dp"
+        android:layout_height="303dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/crowding_detection_view_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/crowding_detection_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/welcome_crowding_message"
+        android:textColor="@color/green_secondary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/crowding_detection_view" />
+
+    <TextView
+        android:id="@+id/crowding_detection_intro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center"
+        android:text="@string/welcome_crowding_content"
+        app:layout_constraintEnd_toEndOf="@+id/crowding_detection_view"
+        app:layout_constraintStart_toStartOf="@+id/crowding_detection_view"
+        app:layout_constraintTop_toBottomOf="@+id/crowding_detection_title" />
+
+    <ImageView
+        android:id="@+id/crowd_image"
+        android:layout_width="85dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="126dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="138dp"
+        android:src="@drawable/crowd"
+        app:layout_constraintEnd_toEndOf="@+id/crowding_detection_view"
+        app:layout_constraintStart_toStartOf="@+id/crowding_detection_view"
+        app:layout_constraintTop_toBottomOf="@+id/crowding_detection_intro"
+        tools:src="@tools:sample/avatars" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/take_photo_layout"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="380dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crowding_detection_view">
+
+        <Button
+            android:id="@+id/take_photo_btn"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/blue_primary"
+            android:text="@string/take_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

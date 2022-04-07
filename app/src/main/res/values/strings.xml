@@ -18,6 +18,14 @@
     <string name="comment_title">comment title</string>
     <string name="comment_content">comment content</string>
     <string name="error_data_message">no comments available</string>
+    <string name="welcome_crowding_message">welcome to the crowding detection section</string>
+    <string name="welcome_crowding_content">
+        As the crime rate is now increasing for approximately 24% per year in Victoria and is predominantly
+        affects commuters in a crowded public transportations, it is better to check the crowdedness level
+        on your surroundings.
+    </string>
+    <string name="take_photo">take a photo</string>
+    <string name="back_menu">back to main menu</string>
     <string-array name="news_tags">
         <item>all</item>
         <item>crime</item>
