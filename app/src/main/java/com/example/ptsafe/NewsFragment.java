@@ -17,9 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.example.ptsafe.R;
 import com.example.ptsafe.adapter.NewsAdapter;
 import com.example.ptsafe.model.News;
 
@@ -28,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -130,7 +127,7 @@ public class NewsFragment extends Fragment {
     }
 
     public void initView(View view) {
-        newsRv = view.findViewById(R.id.news_rv);
+        newsRv = view.findViewById(R.id.emergency_rv);
         layoutManager = new LinearLayoutManager(getContext());
         filterSpinner = view.findViewById(R.id.news_label_spinner);
         addNewsBtn = view.findViewById(R.id.add_news_btn);
