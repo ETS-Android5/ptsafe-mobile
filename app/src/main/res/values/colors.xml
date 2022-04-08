@@ -7,5 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_primary">#FFFFFF</color>
     <color name="blue_primary">#23A9F4</color>
+    <color name="news_rv_color">#F7F7F7</color>
+    <color name="blue_secondary">#541929B4</color>
+    <color name="green_secondary">#98B83C</color>
+    <color name="grey_primary">#F7F7F7</color>
+    <color name="orange_primary">#FF9900</color>
+    <color name="red_primary">#d12b1f</color>
 </resources>

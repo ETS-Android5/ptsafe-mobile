@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">PTsafe</string>
+    <string name="menu_home">home</string>
+    <string name="menu_detect_crowding">detect crowding</string>
+    <string name="menu_news">news</string>
+    <string name="menu_emergency_call">emergency call</string>
+    <string name="Open">open</string>
+    <string name="Close">close</string>
+    <string name="read_more">read more</string>
+    <string name="add_news">add news</string>
+    <string name="news_title">news title</string>
+    <string name="news_label">news label</string>
+    <string name="news_content">news content</string>
+    <string name="image_url">image url</string>
+    <string name="news_url">news url</string>
+    <string name="comment_label">comments</string>
+    <string name="add_comments">add comments</string>
+    <string name="comment_title">comment title</string>
+    <string name="comment_content">comment content</string>
+    <string name="error_data_message">no comments available</string>
+    <string name="welcome_crowding_message">welcome to the crowding detection section</string>
+    <string name="welcome_crowding_content">
+        As the crime rate is now increasing for approximately 24% per year in Victoria and is predominantly
+        affects commuters in a crowded public transportations, it is better to check the crowdedness level
+        on your surroundings.
+    </string>
+    <string name="welcome_home">Hello User!</string>
+    <string name="take_photo">take a photo</string>
+    <string name="back_menu">back to main menu</string>
+    <string-array name="news_tags">
+        <item>all</item>
+        <item>crime</item>
+        <item>tech</item>
+    </string-array>
+    <string-array name="news_tags_without_all">
+        <item>crime</item>
+        <item>tech</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
