@@ -27,6 +27,10 @@
     <string name="welcome_home">Hello User!</string>
     <string name="take_photo">take a photo</string>
     <string name="back_menu">back to main menu</string>
+    <string name="report_menu">report the crowd</string>
+    <string name="instruction_label">Instruction if you are facing a high crowded area</string>
+    <string name="password_label">enter your password</string>
+    <string name="login_label">login</string>
     <string-array name="news_tags">
         <item>all</item>
         <item>crime</item>

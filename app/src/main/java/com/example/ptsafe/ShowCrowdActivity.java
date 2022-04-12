@@ -46,6 +46,8 @@ public class ShowCrowdActivity extends AppCompatActivity {
     private TextView totalPercentageTv;
     private TextView suggestionTv;
     private Button backToMainBtn;
+    private Button reportBtn;
+    private Button readMoreBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         backToMainBtn.setOnClickListener(setBackToMainMenuBtn());
+        readMoreBtn.setOnClickListener(setReadMoreBtnListener());
     }
 
     private View.OnClickListener setBackToMainMenuBtn() {
@@ -66,6 +69,18 @@ public class ShowCrowdActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ShowCrowdActivity.this, MainActivity.class);
                 startActivity(intent);
+            }
+        };
+    }
+
+    private View.OnClickListener setReadMoreBtnListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent viewIntent =
+                        new Intent("android.intent.action.VIEW",
+                                Uri.parse("https://www.corporatetravelsafety.com/safety-tips/avoid-theft-protect-valuables-crowds/"));
+                startActivity(viewIntent);
             }
         };
     }
@@ -133,12 +148,18 @@ public class ShowCrowdActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         totalCountTv.setText("Number of passengers: " + finalNumberOfPeople);
-                        totalPercentageTv.setText("Level of crowdedness: " + String.format("%.2f", finalPercentageOfPeople));
-                        if (finalPercentageOfPeople > 0.5) {
+                        if (finalPercentageOfPeople > 0.8) {
+                           totalPercentageTv.setText("Level of crowdedness: High");
                            suggestionTv.setText("Try another carriages!");
                            suggestionTv.setTextColor(Color.RED);
                         }
+                        else if (finalPercentageOfPeople > 0.5) {
+                            totalPercentageTv.setText("Level of crowdedness: Medium");
+                            suggestionTv.setText("Please consider to move!");
+                            suggestionTv.setTextColor(Color.YELLOW);
+                        }
                         else {
+                            totalPercentageTv.setText("Level of crowdedness: Low");
                             suggestionTv.setText("You can stay here.");
                             suggestionTv.setTextColor(Color.GREEN);
                         }
@@ -171,5 +192,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
         totalPercentageTv = findViewById(R.id.total_percentage_tv);
         suggestionTv = findViewById(R.id.suggestions_tv);
         backToMainBtn = findViewById(R.id.back_to_menu_btn);
+        reportBtn = findViewById(R.id.report_btn);
+        readMoreBtn = findViewById(R.id.read_instruction_btn);
     }
 }
