@@ -15,4 +15,7 @@
     <color name="grey_primary">#F7F7F7</color>
     <color name="orange_primary">#FF9900</color>
     <color name="red_primary">#d12b1f</color>
+    <color name="blue_menu_crowd">#047FD8</color>
+    <color name="blue_menu_news">#34A9EB</color>
+    <color name="blue_menu_emergency">#6CEBF3</color>
 </resources>

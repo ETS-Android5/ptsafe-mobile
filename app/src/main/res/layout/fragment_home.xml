@@ -4,7 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="HomeFragment">
+    tools:context="HomeFragment"
+    tools:layout_editor_absoluteX="3dp"
+    tools:layout_editor_absoluteY="0dp">
+
+    <View
+        android:id="@+id/emergency_menu_view"
+        android:layout_width="165dp"
+        android:layout_height="138dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/emergency_menu_shape"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detect_menu_view" />
+
+    <View
+        android:id="@+id/news_view_menu"
+        android:layout_width="165dp"
+        android:layout_height="138dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="26dp"
+        android:background="@drawable/news_menu_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detect_menu_view"
+        app:layout_constraintTop_toBottomOf="@+id/home_view" />
 
     <View
         android:id="@+id/home_view"
@@ -25,11 +49,91 @@
         android:layout_marginStart="149dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="151dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
         android:text="@string/welcome_home"
+        android:textColor="@color/black"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/home_view"
         app:layout_constraintStart_toStartOf="@+id/home_view"
         app:layout_constraintTop_toTopOf="@+id/home_view" />
+
+    <View
+        android:id="@+id/detect_menu_view"
+        android:layout_width="165dp"
+        android:layout_height="138dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/crowding_menu_shape"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_view" />
+
+    <TextView
+        android:id="@+id/crowding_menu_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/menu_detect_crowding"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/detect_menu_view"
+        app:layout_constraintStart_toStartOf="@+id/detect_menu_view"
+        app:layout_constraintTop_toTopOf="@+id/detect_menu_view" />
+
+    <TextView
+        android:id="@+id/news_menu_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="66dp"
+        android:text="@string/menu_news"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/news_view_menu"
+        app:layout_constraintStart_toStartOf="@+id/news_view_menu"
+        app:layout_constraintTop_toTopOf="@+id/news_view_menu" />
+
+    <TextView
+        android:id="@+id/emergency_menu_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="34dp"
+        android:text="@string/menu_emergency_call"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/emergency_menu_view"
+        app:layout_constraintStart_toStartOf="@+id/emergency_menu_view"
+        app:layout_constraintTop_toTopOf="@+id/emergency_menu_view" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="52dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="19dp"
+        android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintEnd_toEndOf="@+id/detect_menu_view"
+        app:layout_constraintStart_toStartOf="@+id/detect_menu_view"
+        app:layout_constraintTop_toBottomOf="@+id/crowding_menu_tv" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="52dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="19dp"
+        android:src="@android:drawable/ic_menu_agenda"
+        app:layout_constraintEnd_toEndOf="@+id/news_view_menu"
+        app:layout_constraintStart_toStartOf="@+id/news_view_menu"
+        app:layout_constraintTop_toBottomOf="@+id/news_menu_tv" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="52dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="19dp"
+        android:src="@android:drawable/ic_menu_call"
+        app:layout_constraintEnd_toEndOf="@+id/emergency_menu_view"
+        app:layout_constraintStart_toStartOf="@+id/emergency_menu_view"
+        app:layout_constraintTop_toBottomOf="@+id/emergency_menu_tv" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
