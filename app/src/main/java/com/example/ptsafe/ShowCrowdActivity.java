@@ -45,6 +45,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
     private TextView totalCountTv;
     private TextView totalPercentageTv;
     private TextView suggestionTv;
+    private TextView instructionContentTv;
     private Button backToMainBtn;
     private Button reportBtn;
     private Button readMoreBtn;
@@ -60,7 +61,6 @@ public class ShowCrowdActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         backToMainBtn.setOnClickListener(setBackToMainMenuBtn());
-        readMoreBtn.setOnClickListener(setReadMoreBtnListener());
     }
 
     private View.OnClickListener setBackToMainMenuBtn() {
@@ -73,13 +73,13 @@ public class ShowCrowdActivity extends AppCompatActivity {
         };
     }
 
-    private View.OnClickListener setReadMoreBtnListener() {
+    private View.OnClickListener setReadMoreBtnListener(String url) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent viewIntent =
                         new Intent("android.intent.action.VIEW",
-                                Uri.parse("https://www.corporatetravelsafety.com/safety-tips/avoid-theft-protect-valuables-crowds/"));
+                                Uri.parse(url));
                 startActivity(viewIntent);
             }
         };
@@ -151,28 +151,31 @@ public class ShowCrowdActivity extends AppCompatActivity {
                         if (finalPercentageOfPeople > 0.8) {
                            totalPercentageTv.setText("Level of crowdedness: High");
                            suggestionTv.setText("Try another carriages!");
+                           instructionContentTv.setText(getString(R.string.instruction_content));
                            suggestionTv.setTextColor(Color.RED);
+                           readMoreBtn.setOnClickListener(setReadMoreBtnListener("https://www.corporatetravelsafety.com/safety-tips/avoid-theft-protect-valuables-crowds/"));
                         }
                         else if (finalPercentageOfPeople > 0.5) {
                             totalPercentageTv.setText("Level of crowdedness: Medium");
                             suggestionTv.setText("Please consider to move!");
+                            instructionContentTv.setText(getString(R.string.instruction_content));
                             suggestionTv.setTextColor(Color.YELLOW);
+                            readMoreBtn.setOnClickListener(setReadMoreBtnListener("https://www.corporatetravelsafety.com/safety-tips/avoid-theft-protect-valuables-crowds/"));
                         }
                         else {
                             totalPercentageTv.setText("Level of crowdedness: Low");
                             suggestionTv.setText("You can stay here.");
+                            instructionContentTv.setText(getString(R.string.instruction_low_content));
+                            readMoreBtn.setOnClickListener(setReadMoreBtnListener("https://publicsafety.columbia.edu/crimepreventiontips"));
                             suggestionTv.setTextColor(Color.GREEN);
                         }
                         totalCountTv.setVisibility(View.VISIBLE);
                         totalPercentageTv.setVisibility(View.VISIBLE);
                         suggestionTv.setVisibility(View.VISIBLE);
-//                            Log.i("result", response.body().string());
                     }
                 });
             }
         });
-
-//        Log.i("realpath", getRealPath(uri));
     }
 
     //todo: get real path of a picture
@@ -191,6 +194,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
         totalCountTv = findViewById(R.id.total_count_tv);
         totalPercentageTv = findViewById(R.id.total_percentage_tv);
         suggestionTv = findViewById(R.id.suggestions_tv);
+        instructionContentTv = findViewById(R.id.instruction_content_tv);
         backToMainBtn = findViewById(R.id.back_to_menu_btn);
         reportBtn = findViewById(R.id.report_btn);
         readMoreBtn = findViewById(R.id.read_instruction_btn);

@@ -28,7 +28,10 @@
     <string name="take_photo">take a photo</string>
     <string name="back_menu">back to main menu</string>
     <string name="report_menu">report the crowd</string>
-    <string name="instruction_label">Instruction if you are facing a high crowded area</string>
+    <string name="instruction_label">Instruction according to the crowdedness level:</string>
+    <string name="instruction_low_label">Instruction if you are facing a low crowded area</string>
+    <string name="instruction_content">1. Never publicly check your valuables. \u000A2.Wear a crossbody purse where the straps lay diagonally across your body. \u000A3.Standby on our emergency call menu whenever possible.</string>
+    <string name="instruction_low_content">1. Get off at well-lit and busy stops whenever possible. \u000A2.If you are getting off at a little-used stop, try to arrange for a friend to meet with you.\u000A3.do not doze off.</string>
     <string name="password_label">enter your password</string>
     <string name="login_label">login</string>
     <string-array name="news_tags">

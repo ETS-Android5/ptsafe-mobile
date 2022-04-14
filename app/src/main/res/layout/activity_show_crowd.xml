@@ -131,7 +131,6 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="23dp"
         android:layout_marginEnd="34dp"
-        android:text="1. Never publicly check your valuables. \u000A2.Wear a crossbody purse where the straps lay diagonally across your body. \u000A3.Standby on our emergency call menu whenever possible."
         app:layout_constraintEnd_toEndOf="@+id/info_vw"
         app:layout_constraintStart_toStartOf="@+id/info_vw"
         app:layout_constraintTop_toBottomOf="@+id/instruction_tv" />
