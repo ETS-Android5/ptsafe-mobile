@@ -34,6 +34,7 @@
     <string name="instruction_low_content">1. Get off at well-lit and busy stops whenever possible. \u000A2.If you are getting off at a little-used stop, try to arrange for a friend to meet with you.\u000A3.do not doze off.</string>
     <string name="password_label">enter your password</string>
     <string name="login_label">login</string>
+    <string name="add_trip_btn">add trip</string>
     <string-array name="news_tags">
         <item>all</item>
         <item>crime</item>

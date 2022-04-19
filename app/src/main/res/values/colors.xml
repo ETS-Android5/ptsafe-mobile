@@ -18,4 +18,5 @@
     <color name="blue_menu_crowd">#047FD8</color>
     <color name="blue_menu_news">#34A9EB</color>
     <color name="blue_menu_emergency">#6CEBF3</color>
+    <color name="blue_menu_add_trip">#047FD8</color>
 </resources>

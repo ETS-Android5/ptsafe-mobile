@@ -20,6 +20,7 @@ public class HomeFragment extends Fragment {
     private View crowdedMenuVw;
     private View emergencyMenuVw;
     private View newsMenuVw;
+    private View addTripMenuVw;
 
     public HomeFragment() {
 
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
         crowdedMenuVw.setOnClickListener(setMenuBtn("crowd"));
         emergencyMenuVw.setOnClickListener(setMenuBtn("emergency"));
         newsMenuVw.setOnClickListener(setMenuBtn("news"));
+        addTripMenuVw.setOnClickListener(setMenuBtn("trip"));
         return view;
     }
 
@@ -57,6 +59,9 @@ public class HomeFragment extends Fragment {
                         NewsFragment newsName = new NewsFragment();
                         fragmentTransaction.replace(R.id.content_frame, newsName);
                         fragmentTransaction.commit(); break;
+                    case "trip":
+                        FindStationFragment findStationName = new FindStationFragment();
+                        fragmentTransaction.replace(R.id.content_frame, findStationName);
                 }
 
             }
@@ -67,5 +72,6 @@ public class HomeFragment extends Fragment {
         crowdedMenuVw = view.findViewById(R.id.detect_menu_view);
         emergencyMenuVw = view.findViewById(R.id.emergency_menu_view);
         newsMenuVw = view.findViewById(R.id.news_view_menu);
+        addTripMenuVw = view.findViewById(R.id.add_trip_menu_view);
     }
 }

@@ -12,4 +12,8 @@
     <item
         android:id="@+id/menu_emergency_call"
         android:title="@string/menu_emergency_call"/>
+    <item
+        android:id="@+id/menu_find_a_station"
+        android:title="find a station"
+        />
 </menu>
