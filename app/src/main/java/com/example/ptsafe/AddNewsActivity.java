@@ -61,7 +61,7 @@ public class AddNewsActivity extends AppCompatActivity {
     //todo: implement add comments function using okHttp
     private void addNews(){
         OkHttpClient client = new OkHttpClient();
-        String url = "https://ptsafe-backend.herokuapp.com/v1/news/create";
+        String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/news/create";
 
         PostNews news = null;
         String label = "";

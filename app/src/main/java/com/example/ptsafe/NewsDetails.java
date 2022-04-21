@@ -127,7 +127,7 @@ public class NewsDetails extends AppCompatActivity {
         Intent intent = getIntent();
         newsId = intent.getExtras().getString("newsId");
         OkHttpClient client = new OkHttpClient();
-        String url = "https://ptsafe-backend.herokuapp.com/v1/comment/findByNewsId?newsid=" + newsId;
+        String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/comment/findByNewsId?newsid=" + newsId;
         Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
             @Override

@@ -64,7 +64,7 @@ public class AddCommentsActivity extends AppCompatActivity {
     //todo: implement add comments function using okHttp
     private void addCommentsForSpecificNewsId(String newsId){
         OkHttpClient client = new OkHttpClient();
-        String url = "https://ptsafe-backend.herokuapp.com/v1/comment/create";
+        String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/comment/create";
 
         PostComment comment = null;
         comment = new PostComment(newsId, commentTitleEt.getText().toString(), commentContentEt.getText().toString());
