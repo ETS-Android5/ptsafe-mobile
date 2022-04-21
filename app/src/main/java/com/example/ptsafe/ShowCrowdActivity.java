@@ -96,7 +96,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
 
     //todo: create post multiform function
     private void detectObject(Uri uri) {
-        String url = "https://ptsafe-object-detection-api.herokuapp.com/v1/predict";
+        String url = "http://ptsafeflaskapi-env.eba-33drkpns.us-east-1.elasticbeanstalk.com/v1/predict";
         File file = null;
         String realPath = getRealPath(uri);
         try {

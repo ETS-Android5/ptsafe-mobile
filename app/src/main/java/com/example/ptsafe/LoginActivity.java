@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         else {
             String password = passwordEt.getText().toString();
             OkHttpClient client = new OkHttpClient();
-            String url = "https://ptsafe-backend.herokuapp.com/v1/credential/findByUserNameAndPassword?username=ta27_ptsafe&password=" + password;
+            String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/credential/findByUserNameAndPassword?username=ta27_ptsafe&password=" + password;
             Request request = new Request.Builder().url(url).build();
             client.newCall(request).enqueue(new Callback() {
                 @Override
