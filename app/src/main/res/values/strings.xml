@@ -45,6 +45,44 @@
         <item>tech</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="in_out">
+        <item>inbound</item>
+        <item>outbound</item>
+    </string-array>
+    <string-array name="day">
+        <item>monday</item>
+        <item>tuesday</item>
+        <item>wednesday</item>
+        <item>thursday</item>
+        <item>friday</item>
+        <item>saturday</item>
+        <item>sunday</item>
+    </string-array>
+    <string-array name="carriage">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_view_station">ViewStationActivity</string>
+    <string name="crime_news_title">crime news near here</string>
+    <string name="show_weekday_data">show weekday data</string>
+    <string name="show_weekly_data">show weekly data</string>
+    <string name="available_trains">available trains</string>
+    <string name="level_of_crowdedness_report">level of crowdedness</string>
+    <string name="direction_type_label">direction type</string>
+    <string name="line_name_label">train name</string>
+    <string name="route_name_label">station name</string>
+    <string name="day_label">day</string>
+    <string name="time_label">departure time</string>
+    <string name="carriage_number_label">carriage number</string>
+    <string name="criminal_activity_label">report criminal activity</string>
+    <string name="crowdedness_report">report</string>
 </resources>

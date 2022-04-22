@@ -61,6 +61,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         backToMainBtn.setOnClickListener(setBackToMainMenuBtn());
+        reportBtn.setOnClickListener(setReportBtn());
     }
 
     private View.OnClickListener setBackToMainMenuBtn() {
@@ -68,6 +69,16 @@ public class ShowCrowdActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ShowCrowdActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        };
+    }
+
+    private View.OnClickListener setReportBtn() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShowCrowdActivity.this, CrowdednessReportActivity.class);
                 startActivity(intent);
             }
         };

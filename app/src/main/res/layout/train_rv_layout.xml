@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:orientation="horizontal"
+    android:background="@drawable/news_rv_shape">
+
+    <TextView
+        android:id="@+id/train_long_name_tv"
+        android:layout_width="380dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="16dp"
+        android:text="This is for the route long name"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/departure_time_tv"
+        android:layout_width="224dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="54dp"
+        android:text="This is for the departure time"
+        app:layout_constraintEnd_toStartOf="@+id/check_carriage_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trip_headsign_tv" />
+
+    <TextView
+        android:id="@+id/trip_headsign_tv"
+        android:layout_width="218dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="180dp"
+        android:text="This is for the trip headsign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/train_long_name_tv" />
+
+    <Button
+        android:id="@+id/check_carriage_btn"
+        android:layout_width="98dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="11dp"
+        android:backgroundTint="#8BC34A"
+        android:text="Check carriage"
+        android:textColor="#236509"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

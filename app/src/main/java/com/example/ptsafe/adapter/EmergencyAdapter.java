@@ -11,10 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ptsafe.R;
-import com.example.ptsafe.model.Comment;
 import com.example.ptsafe.model.Emergency;
-import com.example.ptsafe.model.News;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 

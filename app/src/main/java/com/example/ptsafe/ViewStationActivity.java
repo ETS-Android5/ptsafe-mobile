@@ -1,6 +1,7 @@
 package com.example.ptsafe;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -11,11 +12,13 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +46,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -54,6 +58,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
 
     private GoogleMap mMap;
     private EditText destSearchEt;
+    private Spinner inOutSpinner;
     private ActivityViewStationBinding binding;
     Location currentLocation;
     private LatLng currLocation;
@@ -88,16 +93,14 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dest, 10f));
 
                     mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                        @RequiresApi(api = Build.VERSION_CODES.N)
                         @Override
                         public void onInfoWindowClick(@NonNull Marker marker) {
 
                             if(stationMarkers.containsKey(marker.getId())) {
                                 int stopId = stationMarkers.get(marker.getId());
-                                Intent intent = new Intent(ViewStationActivity.this, ListTrainActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("stopId", stopId);
-                                intent.putExtras(bundle);
-                                startActivity(intent);
+                                goToListTrainPage(stopId);
                             }
                             else {
                                 Toast.makeText(getApplicationContext(), "Cannot select markers that are not nearest stops", Toast.LENGTH_SHORT).show();
@@ -120,6 +123,30 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
         currLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.addMarker(new MarkerOptions().position(currLocation).title("Your location"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15f));
+    }
+
+    private int getSpinnerItemNumber(Spinner spinner) {
+        String text = spinner.getSelectedItem().toString();
+        if (text.equals("outbound")) {
+            return 0;
+        }
+        return 1;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void goToListTrainPage (int stopId) {
+        Optional<NearestStops> object = nearestStops.stream().
+                filter(p -> p.getStopId() == stopId).
+                findFirst();
+        NearestStops nearestStops = object.get();
+        Intent intent = new Intent(ViewStationActivity.this, ListTrainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("stopId", stopId);
+        bundle.putInt("destinationType", getSpinnerItemNumber(inOutSpinner));
+        bundle.putDouble("latitude", dest.latitude);
+        bundle.putDouble("longitude", dest.longitude);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void getCurrentLocation() {
@@ -167,7 +194,6 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                     .snippet("Passengers: " + stop.getPaxWeekday() + ", Police stations: " + stop.getTotalPoliceStations())
                     .icon(BitmapDescriptorFactory
                             .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-            marker.showInfoWindow();
             stationMarkers.put(marker.getId(), stop.getStopId());
         }
     }
@@ -247,6 +273,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
 
     private void initView() {
         destSearchEt = findViewById(R.id.destination_search_et);
+        inOutSpinner = findViewById(R.id.in_out_spinner);
     }
 
     private void initVar() {
