@@ -5,17 +5,21 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.ptsafe.model.NearestStops;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,15 +28,27 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.ptsafe.databinding.ActivityViewStationBinding;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ViewStationActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -42,6 +58,8 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
     Location currentLocation;
     private LatLng currLocation;
     private LatLng dest;
+    private List<NearestStops> nearestStops;
+    private HashMap<String, Integer> stationMarkers;
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
 
@@ -50,10 +68,10 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         binding = ActivityViewStationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        getCurrentLocation();
+        initVar();
         initView();
+        getCurrentLocation();
 
         destSearchEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -64,7 +82,29 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                     String destLocation = destSearchEt.getText().toString();
                     dest = getLocationFromAddress(destLocation);
                     mMap.addMarker(new MarkerOptions().position(dest).title("Your destination").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dest, 12f));
+
+                    //todo: show toast asking the user to walk instead of showing nearest stops if the destination is too near
+                    getAllNearestStopsToCurrentLocation(currLocation);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dest, 10f));
+
+                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                        @Override
+                        public void onInfoWindowClick(@NonNull Marker marker) {
+
+                            if(stationMarkers.containsKey(marker.getId())) {
+                                int stopId = stationMarkers.get(marker.getId());
+                                Intent intent = new Intent(ViewStationActivity.this, ListTrainActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("stopId", stopId);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(), "Cannot select markers that are not nearest stops", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                     drawPolyline(mMap, currLocation, dest);
                     return true;
                 }
@@ -77,7 +117,6 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in current location and move the camera
         currLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.addMarker(new MarkerOptions().position(currLocation).title("Your location"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15f));
@@ -120,13 +159,77 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
         return p1;
     }
 
+    private void addStationsMarkerToHashMap (List<NearestStops> stopsData) {
+        for (NearestStops stop: stopsData) {
+            LatLng coordinate = new LatLng(stop.getStopLat(), stop.getStopLong());
+            Marker marker = mMap.addMarker(new MarkerOptions().
+                    position(coordinate).title(stop.getStopName())
+                    .snippet("Passengers: " + stop.getPaxWeekday() + ", Police stations: " + stop.getTotalPoliceStations())
+                    .icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            marker.showInfoWindow();
+            stationMarkers.put(marker.getId(), stop.getStopId());
+        }
+    }
+
+    //get nearest stations based on the current location by implementing okhttp
+    private void getAllNearestStopsToCurrentLocation(LatLng currLocation){
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/report/findNearestStopsByCurrLocation?lat=" + currLocation.latitude + "&long=" + currLocation.longitude;
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                JSONObject resultObj = null;
+                List<NearestStops> nearestStopsData = new ArrayList<>();
+                try {
+                    resultObj = new JSONObject(response.body().string());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONArray data = null;
+                try {
+                    data = resultObj.getJSONArray("message");
+                    Log.d("JSONArrayLength", String.valueOf(data.length()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                for(int i = 0; i < data.length(); i++) {
+                    JSONObject obj = null;
+                    try {
+                        obj = data.getJSONObject(i);
+                        int stopId = obj.getInt("stop_id");
+                        String stopName = obj.getString("stop_name");
+                        float stopLat = (float) obj.getDouble("stop_lat");
+                        float stopLong = (float) obj.getDouble("stop_lon");
+                        int paxWeekday = obj.getInt("pax_weekday");
+                        int totalPoliceStation = obj.getInt("total_police_station");
+                        float distanceInKm = (float) obj.getDouble("distance_in_km");
+                        NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, paxWeekday, totalPoliceStation, distanceInKm);
+                        nearestStops.add(newStop);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        addStationsMarkerToHashMap(nearestStops);
+                    }
+                });
+            }
+        });
+    };
+
     private void drawPolyline(GoogleMap map, LatLng currLocation, LatLng dest) {
         map.addPolyline((new PolylineOptions()).add(currLocation, dest).
-                // below line is use to specify the width of poly line.
                         width(3)
-                // below line is use to add color to our poly line.
                 .color(Color.RED)
-                // below line is to make our poly line geodesic.
                 .geodesic(true));
     }
 
@@ -144,5 +247,10 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
 
     private void initView() {
         destSearchEt = findViewById(R.id.destination_search_et);
+    }
+
+    private void initVar() {
+        stationMarkers = new HashMap<>();
+        nearestStops = new ArrayList<>();
     }
 }
