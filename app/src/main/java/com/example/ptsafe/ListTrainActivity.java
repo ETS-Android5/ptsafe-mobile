@@ -1,21 +1,29 @@
 package com.example.ptsafe;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ptsafe.adapter.NewsAdapter;
+import com.example.ptsafe.adapter.NewsTitleAdapter;
 import com.example.ptsafe.adapter.TrainAdapter;
 import com.example.ptsafe.model.News;
+import com.example.ptsafe.model.NewsStop;
 import com.example.ptsafe.model.Train;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +32,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -35,13 +44,23 @@ public class ListTrainActivity extends AppCompatActivity {
 
     private RecyclerView crimeNewsRv;
     private TrainAdapter.ClickListener listener;
+    private NewsTitleAdapter.ClickListener newsTitleListener;
     private RecyclerView availableTrainsRv;
+    private TextView errorMessageTv;
     private Button showWeeklyBtn;
     private Button showWeekdayBtn;
     private TrainAdapter trainAdapter;
+    private NewsTitleAdapter newsTitleAdapter;
     private RecyclerView.LayoutManager trainLayoutManager;
+    private RecyclerView.LayoutManager newsLayoutManager;
     private List<Train> trainsData;
+    private List<NewsStop> newsStopData;
+    private List<NewsStop> nearestNewsStopData;
     private int stopId;
+    private String currentAddress;
+    private String destinationAddress;
+    private double latitude;
+    private double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +68,7 @@ public class ListTrainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_train);
         initData();
         initView();
+        getAllCrimeNews();
         getAllTrainsData();
     }
 
@@ -56,19 +76,37 @@ public class ListTrainActivity extends AppCompatActivity {
         crimeNewsRv = findViewById(R.id.location_news_rv);
         availableTrainsRv = findViewById(R.id.available_trains_rv);
         trainLayoutManager = new LinearLayoutManager(this);
+        newsLayoutManager = new LinearLayoutManager(this);
         showWeekdayBtn = findViewById(R.id.show_weekday_btn);
         showWeeklyBtn = findViewById(R.id.show_weekly_btn);
+        errorMessageTv = findViewById(R.id.error_message_crime_tv);
     }
 
     private void setOnClickListener(final List<Train> trainsData) {
         listener = position -> {
-            Intent intent = new Intent(ListTrainActivity.this, CarriageDetails.class);
+            Intent intent = new Intent(ListTrainActivity.this, ListCarriageActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt("stopId", stopId);
             bundle.putString("routeId", trainsData.get(position).getRouteId());
             bundle.putString("routeLongName", trainsData.get(position).getRouteLongName());
             bundle.putString("tripHeadSign", trainsData.get(position).getTripHeadSign());
             bundle.putString("departureTime", trainsData.get(position).getDepartureTime());
+            bundle.putString("currentAddress", currentAddress);
+            bundle.putString("destinationAddress", destinationAddress);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        };
+    }
+
+    private void setNewsOnClickListener(final List<NewsStop> newsStopsData) {
+        listener = position -> {
+            Intent intent = new Intent(ListTrainActivity.this, NewsDetails.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("newsId", newsStopsData.get(position).getNewsId());
+            bundle.putString("newsTitle", newsStopsData.get(position).getNewsTitle());
+            bundle.putString("newsContent", newsStopsData.get(position).getNewsContent());
+            bundle.putString("imageUrl", newsStopsData.get(position).getImageUrl());
+            bundle.putString("newsUrl", newsStopsData.get(position).getNewsUrl());
             intent.putExtras(bundle);
             startActivity(intent);
         };
@@ -79,8 +117,10 @@ public class ListTrainActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         stopId = bundle.getInt("stopId");
         int destinationType = bundle.getInt("destinationType");
-        double latitude = bundle.getDouble("latitude");
-        double longitude = bundle.getDouble("longitude");
+        latitude = bundle.getDouble("latitude");
+        longitude = bundle.getDouble("longitude");
+        currentAddress = bundle.getString("currentAddress");
+        destinationAddress = bundle.getString("destinationAddress");
         getAllTrainsByStopDirectionAndCoordinates(stopId, destinationType, latitude, longitude);
     }
 
@@ -138,7 +178,128 @@ public class ListTrainActivity extends AppCompatActivity {
         });
     }
 
+    private double getApproximateDistance(String strAddress) {
+        LatLng coordinates = getLocationFromAddress(strAddress);
+        return distance(latitude, longitude, coordinates.latitude, coordinates.longitude);
+    }
+
+    private LatLng getLocationFromAddress(String strAddress) {
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        LatLng p1 = null;
+        try {
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+            else if (address.size() == 0) {
+                return null;
+            }
+            else {
+                Address location = address.get(0);
+                p1 =  new LatLng(location.getLatitude(), location.getLongitude());
+            }
+        } catch (Exception ex) {
+            return null;
+        }
+        return p1;
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        dist = dist * 0.8684;
+        return (dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
+    //getLocationFromAddress(item.getNewsAddress()
+    public void getAllCrimeNews(){
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/news/findByNewsLabel?newslabel=crime";
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                JSONObject resultObj = null;
+                List<NewsStop> newsStopsData = new ArrayList<>();
+                try {
+                    resultObj = new JSONObject(response.body().string());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONArray data = null;
+                try {
+                    data = resultObj.getJSONArray("message");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                for(int i = 0; i < data.length(); i++) {
+                    JSONObject obj = null;
+                    try {
+                        obj = data.getJSONObject(i);
+                        String newsId = obj.getString("news_id");
+                        String newsTitle = obj.getString("news_title");
+                        String newsFullAddress = obj.getString("news_location") + obj.getString("news_postcode");
+                        String newsImageUrl = obj.getString("image_url");
+                        String newsContent = obj.getString("news_content");
+                        String newsUrl = obj.getString("news_url");
+                        NewsStop news = new NewsStop(newsId, newsTitle, newsFullAddress, newsImageUrl, newsContent, newsUrl);
+                        newsStopsData.add(news);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                nearestNewsStopData = newsStopData.stream().filter(item -> getApproximateDistance(item.getNewsAddress()) < 1.5).collect(Collectors.toList());
+                if (nearestNewsStopData.size() == 0) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            errorMessageTv.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+                else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setNewsOnClickListener(nearestNewsStopData);
+                            errorMessageTv.setVisibility(View.INVISIBLE);
+                            embedDataToAdapter();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void embedDataToAdapter() {
+        newsTitleAdapter = new NewsTitleAdapter(nearestNewsStopData, newsTitleListener);
+        crimeNewsRv.addItemDecoration(new DividerItemDecoration(getApplication(),
+                LinearLayoutManager.VERTICAL));
+        crimeNewsRv.setAdapter(newsTitleAdapter);
+        crimeNewsRv.setLayoutManager(trainLayoutManager);
+    }
+
     private void initData() {
         trainsData = new ArrayList<>();
+        newsStopData = new ArrayList<>();
+        nearestNewsStopData = new ArrayList<>();
     }
 }

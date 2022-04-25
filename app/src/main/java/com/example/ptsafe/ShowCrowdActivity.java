@@ -49,6 +49,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
     private Button backToMainBtn;
     private Button reportBtn;
     private Button readMoreBtn;
+    private float crowdnessValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,9 @@ public class ShowCrowdActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ShowCrowdActivity.this, CrowdednessReportActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putFloat("crowdnessLevel", crowdnessValue);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         };
@@ -155,6 +159,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
 
                 int finalNumberOfPeople = numberOfPeople;
                 float finalPercentageOfPeople = percentageOfPeople;
+                crowdnessValue = percentageOfPeople;
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

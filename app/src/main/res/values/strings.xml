@@ -50,13 +50,13 @@
         <item>outbound</item>
     </string-array>
     <string-array name="day">
-        <item>monday</item>
-        <item>tuesday</item>
-        <item>wednesday</item>
-        <item>thursday</item>
-        <item>friday</item>
-        <item>saturday</item>
-        <item>sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
     </string-array>
     <string-array name="carriage">
         <item>1</item>
@@ -85,4 +85,7 @@
     <string name="carriage_number_label">carriage number</string>
     <string name="criminal_activity_label">report criminal activity</string>
     <string name="crowdedness_report">report</string>
+    <string name="list_carriage_title">list of carriages</string>
+    <string name="recorded_crime_activities">recorded crime activities</string>
+    <string name="saved_trip_label">saved trips</string>
 </resources>

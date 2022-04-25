@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="320dp"
+    android:background="@drawable/news_rv_shape"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/carriage_number_tv"
+        android:layout_width="224dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="67dp"
+        android:text="carriage number"
+        app:layout_constraintEnd_toStartOf="@+id/delete_trip_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/departure_time_trip_tv" />
+
+    <TextView
+        android:id="@+id/departure_time_trip_tv"
+        android:layout_width="224dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="177dp"
+        android:text="departure time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/route_name_tv" />
+
+    <TextView
+        android:id="@+id/destination_name_tv"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="11dp"
+        android:text="Destination"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/source_name_tv"
+        android:layout_width="172dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="41dp"
+        android:text="source"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/destination_name_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/route_name_tv"
+        android:layout_width="350dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="16dp"
+        android:text="route name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stop_name_tv" />
+
+    <TextView
+        android:id="@+id/stop_name_tv"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="100dp"
+        android:text="stop name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/source_name_tv" />
+
+    <Button
+        android:id="@+id/delete_trip_btn"
+        android:layout_width="98dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="298dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="11dp"
+        android:backgroundTint="@color/red_primary"
+        android:text="delete trip"
+        android:textColor="@color/white_primary"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

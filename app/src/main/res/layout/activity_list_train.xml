@@ -7,6 +7,17 @@
     tools:context=".ListTrainActivity">
 
     <TextView
+        android:id="@+id/error_message_crime_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="no crime news near this station"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crime_news_stop_tv" />
+
+    <TextView
         android:id="@+id/train_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

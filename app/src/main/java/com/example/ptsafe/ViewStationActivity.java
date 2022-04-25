@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -64,6 +66,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
     private LatLng currLocation;
     private LatLng dest;
     private List<NearestStops> nearestStops;
+    private String currentAddress;
     private HashMap<String, Integer> stationMarkers;
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
@@ -83,33 +86,43 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     mMap.clear();
-                    mMap.addMarker(new MarkerOptions().position(currLocation).title("Your location"));
+                    mMap.addMarker(new MarkerOptions().position(currLocation).title("Your location").icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
                     String destLocation = destSearchEt.getText().toString();
                     dest = getLocationFromAddress(destLocation);
-                    mMap.addMarker(new MarkerOptions().position(dest).title("Your destination").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    if (dest == null) {
+                        Toast.makeText(getApplicationContext(), "Cannot find the destination, please provide a complete address!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        mMap.addMarker(new MarkerOptions().position(dest).title("Your destination").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dest, 10f));
 
-                    //todo: show toast asking the user to walk instead of showing nearest stops if the destination is too near
-                    getAllNearestStopsToCurrentLocation(currLocation);
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dest, 10f));
-
-                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-
-                        @RequiresApi(api = Build.VERSION_CODES.N)
-                        @Override
-                        public void onInfoWindowClick(@NonNull Marker marker) {
-
-                            if(stationMarkers.containsKey(marker.getId())) {
-                                int stopId = stationMarkers.get(marker.getId());
-                                goToListTrainPage(stopId);
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(), "Cannot select markers that are not nearest stops", Toast.LENGTH_SHORT).show();
-                            }
+                        //todo: show toast asking the user to walk instead of showing nearest stops if the destination is too near
+                        if (distance(currLocation.latitude, currLocation.longitude, dest.latitude, dest.longitude) < 1.5) {
+                            Toast.makeText(getApplicationContext(), "Your destination is within walking distance", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                        else {
+                            getAllNearestStopsToCurrentLocation(currLocation);
+                        }
+                        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
-                    drawPolyline(mMap, currLocation, dest);
-                    return true;
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onInfoWindowClick(@NonNull Marker marker) {
+
+                                if(stationMarkers.containsKey(marker.getId())) {
+                                    int stopId = stationMarkers.get(marker.getId());
+                                    goToListTrainPage(stopId);
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Cannot select markers that are not nearest stops", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+                        drawPolyline(mMap, currLocation, dest);
+                        return true;
+                    }
                 }
                 return false;
             }
@@ -121,7 +134,8 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
         mMap = googleMap;
 
         currLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(currLocation).title("Your location"));
+        mMap.addMarker(new MarkerOptions().position(currLocation).title("Your location").icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15f));
     }
 
@@ -145,6 +159,8 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
         bundle.putInt("destinationType", getSpinnerItemNumber(inOutSpinner));
         bundle.putDouble("latitude", dest.latitude);
         bundle.putDouble("longitude", dest.longitude);
+        bundle.putString("currentAddress", currentAddress);
+        bundle.putString("destinationAddress", destSearchEt.getText().toString());
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -162,11 +178,51 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
             public void onSuccess(Location location) {
                 if (location != null) {
                     currentLocation = location;
+//                    currentLocation = new Location(LocationManager.GPS_PROVIDER);
+//                    currentLocation.setLatitude(-37.907803);
+//                    currentLocation.setLongitude(145.133957);
+                    try {
+                        getAddressFromCoordinate(currentLocation);
+                    } catch (IOException e) {
+                        currentAddress = "unknown";
+                    }
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                     mapFragment.getMapAsync(ViewStationActivity.this);
                 }
             }
         });
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        dist = dist * 0.8684;
+        return (dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
+    private void getAddressFromCoordinate(Location currLocation) throws IOException {
+        Geocoder coder = new Geocoder(this);
+        List<Address> addresses;
+
+        addresses = coder.getFromLocation(currLocation.getLatitude(), currLocation.getLongitude(), 1);
+
+        currentAddress = addresses.get(0).getAddressLine(0);
+//        String city = addresses.get(0).getLocality();
+//        String state = addresses.get(0).getAdminArea();
+//        String country = addresses.get(0).getCountryName();
+//        String postalCode = addresses.get(0).getPostalCode();
+//        String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
     }
 
     private LatLng getLocationFromAddress(String strAddress) {
@@ -178,23 +234,35 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
             if (address == null) {
                 return null;
             }
-            Address location = address.get(0);
-            p1 =  new LatLng(location.getLatitude(), location.getLongitude());
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            else if (address.size() == 0) {
+                return null;
+            }
+            else {
+                Address location = address.get(0);
+                p1 =  new LatLng(location.getLatitude(), location.getLongitude());
+            }
+        } catch (Exception ex) {
+            return null;
         }
         return p1;
     }
 
     private void addStationsMarkerToHashMap (List<NearestStops> stopsData) {
+        int index = 0;
         for (NearestStops stop: stopsData) {
             LatLng coordinate = new LatLng(stop.getStopLat(), stop.getStopLong());
+            BitmapDescriptor markerColor = BitmapDescriptorFactory
+                    .defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+            if (index != 0) {
+                markerColor = BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+            }
             Marker marker = mMap.addMarker(new MarkerOptions().
                     position(coordinate).title(stop.getStopName())
                     .snippet("Passengers: " + stop.getPaxWeekday() + ", Police stations: " + stop.getTotalPoliceStations())
-                    .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                    .icon(markerColor));
             stationMarkers.put(marker.getId(), stop.getStopId());
+            index++;
         }
     }
 

@@ -26,6 +26,12 @@
         android:theme="@style/Theme.PTsafe"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ShowCarriageDetails"
+            android:exported="true" />
+        <activity
+            android:name=".ListCarriageActivity"
+            android:exported="true" />
+        <activity
             android:name=".CrowdednessReportActivity"
             android:exported="true" />
         <activity
