@@ -33,26 +33,15 @@
         app:layout_constraintTop_toBottomOf="@+id/show_weekday_btn" />
 
     <Button
-        android:id="@+id/show_weekly_btn"
-        android:layout_width="174dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/green_secondary"
-        android:text="@string/show_weekly_data"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_news_rv" />
-
-    <Button
         android:id="@+id/show_weekday_btn"
-        android:layout_width="174dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="18dp"
-        android:layout_marginEnd="43dp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="@color/blue_primary"
         android:text="@string/show_weekday_data"
-        app:layout_constraintEnd_toStartOf="@+id/show_weekly_btn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_news_rv" />
 

@@ -12,16 +12,12 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.ptsafe.adapter.NewsAdapter;
 import com.example.ptsafe.adapter.NewsTitleAdapter;
 import com.example.ptsafe.adapter.TrainAdapter;
-import com.example.ptsafe.model.News;
 import com.example.ptsafe.model.NewsStop;
 import com.example.ptsafe.model.Train;
 import com.google.android.gms.maps.model.LatLng;
@@ -48,8 +44,7 @@ public class ListTrainActivity extends AppCompatActivity {
     private NewsTitleAdapter.ClickListener newsTitleListener;
     private RecyclerView availableTrainsRv;
     private TextView errorMessageTv;
-    private Button showWeeklyBtn;
-    private Button showWeekdayBtn;
+    private Button showHistoricalDataBtn;
     private TrainAdapter trainAdapter;
     private NewsTitleAdapter newsTitleAdapter;
     private RecyclerView.LayoutManager trainLayoutManager;
@@ -71,15 +66,15 @@ public class ListTrainActivity extends AppCompatActivity {
         initView();
         getAllCrimeNews();
         getAllTrainsData();
+        showHistoricalDataBtn.setOnClickListener(showChart());
     }
 
     private void initView () {
         crimeNewsRv = findViewById(R.id.location_news_rv);
         availableTrainsRv = findViewById(R.id.available_trains_rv);
         trainLayoutManager = new LinearLayoutManager(this);
-        newsLayoutManager = new LinearLayoutManager(this);
-        showWeekdayBtn = findViewById(R.id.show_weekday_btn);
-        showWeeklyBtn = findViewById(R.id.show_weekly_btn);
+        newsLayoutManager = new LinearLayoutManager(this);;
+        showHistoricalDataBtn = findViewById(R.id.show_weekday_btn);
         errorMessageTv = findViewById(R.id.error_message_crime_tv);
     }
 
@@ -96,6 +91,19 @@ public class ListTrainActivity extends AppCompatActivity {
             bundle.putString("destinationAddress", destinationAddress);
             intent.putExtras(bundle);
             startActivity(intent);
+        };
+    }
+
+    private View.OnClickListener showChart() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ListTrainActivity.this, HistoricalGraphActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("stopId", stopId);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
         };
     }
 

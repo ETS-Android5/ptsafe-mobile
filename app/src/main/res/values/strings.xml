@@ -70,11 +70,15 @@
         <item>9</item>
         <item>10</item>
     </string-array>
+    <string-array name="historical_year">
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+    </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_view_station">ViewStationActivity</string>
     <string name="crime_news_title">crime news near here</string>
-    <string name="show_weekday_data">show weekday data</string>
-    <string name="show_weekly_data">show weekly data</string>
+    <string name="show_weekday_data">show historical chart</string>
     <string name="available_trains">available trains</string>
     <string name="level_of_crowdedness_report">level of crowdedness</string>
     <string name="direction_type_label">direction type</string>

@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable-v24/circle.xml" value="0.1" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable-v24/text_bg.xml" value="0.1" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable-v24/text_tt.xml" value="0.1" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable-v24/txt_bg.xml" value="0.1" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable-v24/white_bg.xml" value="0.1" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/button_shape.xml" value="0.1" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/comment_rv_shape.xml" value="0.10648148148148148" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/crowd_detection_view_shape.xml" value="0.1" />
@@ -18,8 +23,11 @@
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/text_view_background_shape.xml" value="0.1984375" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_add_comments.xml" value="0.2222222222222222" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_add_news.xml" value="0.2222222222222222" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_box_breathing.xml" value="0.15625" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_carriage_details.xml" value="0.19427083333333334" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_crowdedness_report.xml" value="0.2579908675799087" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_historical_graph.xml" value="0.2222222222222222" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_light_breathing.xml" value="0.18984375" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_list_carriage.xml" value="0.2671875" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_list_train.xml" value="0.2222222222222222" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/activity_login.xml" value="0.165625" />
@@ -38,6 +46,7 @@
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_emergency.xml" value="0.17753623188405798" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_find_station.xml" value="0.2222222222222222" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_home.xml" value="0.2222222222222222" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_meditation.xml" value="0.200390625" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/fragment_news.xml" value="0.2977777777777778" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/home_fragment.xml" value="0.19947916666666668" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/layout/nav_header.xml" value="0.14666666666666667" />

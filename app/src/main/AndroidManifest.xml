@@ -26,6 +26,15 @@
         android:theme="@style/Theme.PTsafe"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".LightBreathingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".BoxBreathingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".HistoricalGraphActivity"
+            android:exported="true" />
+        <activity
             android:name=".ShowCarriageDetails"
             android:exported="true" />
         <activity

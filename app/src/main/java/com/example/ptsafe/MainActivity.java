@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_find_a_station:
                 replaceFragment(new FindStationFragment());
                 break;
+            case R.id.menu_meditation:
+                replaceFragment(new MeditationFragment());
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
