@@ -88,4 +88,5 @@
     <string name="list_carriage_title">list of carriages</string>
     <string name="recorded_crime_activities">recorded crime activities</string>
     <string name="saved_trip_label">saved trips</string>
+    <string name="find_a_station_label">find a station</string>
 </resources>

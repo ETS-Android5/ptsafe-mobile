@@ -63,16 +63,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carriage_number_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/carriage_number_et" />
 
-    <Spinner
-        android:id="@+id/carriage_number_spinner"
+<!--    <Spinner-->
+<!--        android:id="@+id/carriage_number_spinner"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:entries="@array/carriage"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/carriage_label_tv" />     -->
+    <EditText
+        android:id="@+id/carriage_number_et"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:entries="@array/carriage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,20 +102,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_report_et" />
 
-    <TextView
-        android:id="@+id/time_label_tv2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="326dp"
-        android:text="@string/time_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_report_spinner" />
-
-    <AutoCompleteTextView
+        <AutoCompleteTextView
         android:id="@+id/time_report_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -130,7 +128,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_report_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/day_report_et" />
 
     <TextView
         android:id="@+id/day_label_tv"
@@ -145,8 +143,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stop_name_report_et" />
 
-    <Spinner
-        android:id="@+id/day_report_spinner"
+    <EditText
+        android:id="@+id/day_report_et"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="10dp"

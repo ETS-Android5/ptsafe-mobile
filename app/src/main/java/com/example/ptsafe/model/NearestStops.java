@@ -6,19 +6,19 @@ public class NearestStops {
     private String stopName;
     private float stopLat;
     private float stopLong;
-    private int paxWeekday;
+    private float crowdednessDensity;
     private int totalPoliceStations;
     private float distanceInKm;
 
     public NearestStops() {
     }
 
-    public NearestStops(int stopId, String stopName, float stopLat, float stopLong, int paxWeekday, int totalPoliceStations, float distanceInKm) {
+    public NearestStops(int stopId, String stopName, float stopLat, float stopLong, float crowdednessDensity, int totalPoliceStations, float distanceInKm) {
         this.stopId = stopId;
         this.stopName = stopName;
         this.stopLat = stopLat;
         this.stopLong = stopLong;
-        this.paxWeekday = paxWeekday;
+        this.crowdednessDensity = crowdednessDensity;
         this.totalPoliceStations = totalPoliceStations;
         this.distanceInKm = distanceInKm;
     }
@@ -55,12 +55,12 @@ public class NearestStops {
         this.stopLong = stopLong;
     }
 
-    public int getPaxWeekday() {
-        return paxWeekday;
+    public float getCrowdednessDensity() {
+        return crowdednessDensity;
     }
 
-    public void setPaxWeekday(int paxWeekday) {
-        this.paxWeekday = paxWeekday;
+    public void setCrowdednessDensity(float crowdednessDensity) {
+        this.crowdednessDensity = crowdednessDensity;
     }
 
     public int getTotalPoliceStations() {

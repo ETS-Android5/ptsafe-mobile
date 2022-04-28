@@ -8,15 +8,29 @@
     tools:layout_editor_absoluteX="3dp"
     tools:layout_editor_absoluteY="0dp">
 
+    <TextView
+        android:id="@+id/most_used_menu_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="240dp"
+        android:text="most used menu"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_nearest_station_vw" />
+
     <View
         android:id="@+id/add_trip_menu_view"
         android:layout_width="165dp"
         android:layout_height="138dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/add_trip_menu_shape"
-        app:layout_constraintStart_toEndOf="@+id/emergency_menu_view"
-        app:layout_constraintTop_toBottomOf="@+id/news_view_menu" />
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/news_menu_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/most_used_menu_tv" />
 
     <TextView
         android:id="@+id/add_trip_menu_tv"
@@ -25,38 +39,16 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="60dp"
-        android:text="@string/add_trip_btn"
+        android:text="@string/find_a_station_label"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/add_trip_menu_view"
         app:layout_constraintStart_toStartOf="@+id/add_trip_menu_view"
         app:layout_constraintTop_toTopOf="@+id/add_trip_menu_view" />
 
     <View
-        android:id="@+id/emergency_menu_view"
-        android:layout_width="165dp"
-        android:layout_height="138dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/emergency_menu_shape"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detect_menu_view" />
-
-    <View
-        android:id="@+id/news_view_menu"
-        android:layout_width="165dp"
-        android:layout_height="138dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="26dp"
-        android:background="@drawable/news_menu_shape"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/detect_menu_view"
-        app:layout_constraintTop_toBottomOf="@+id/home_view" />
-
-    <View
         android:id="@+id/home_view"
-        android:layout_width="358dp"
-        android:layout_height="233dp"
+        android:layout_width="354dp"
+        android:layout_height="121dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
@@ -84,11 +76,14 @@
         android:id="@+id/detect_menu_view"
         android:layout_width="165dp"
         android:layout_height="138dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="18dp"
         android:background="@drawable/crowding_menu_shape"
+        app:layout_constraintEnd_toStartOf="@+id/add_trip_menu_view"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_view" />
+        app:layout_constraintTop_toBottomOf="@+id/most_used_menu_tv" />
 
     <TextView
         android:id="@+id/crowding_menu_tv"
@@ -103,32 +98,6 @@
         app:layout_constraintStart_toStartOf="@+id/detect_menu_view"
         app:layout_constraintTop_toTopOf="@+id/detect_menu_view" />
 
-    <TextView
-        android:id="@+id/news_menu_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="66dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="66dp"
-        android:text="@string/menu_news"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/news_view_menu"
-        app:layout_constraintStart_toStartOf="@+id/news_view_menu"
-        app:layout_constraintTop_toTopOf="@+id/news_view_menu" />
-
-    <TextView
-        android:id="@+id/emergency_menu_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="34dp"
-        android:text="@string/menu_emergency_call"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/emergency_menu_view"
-        app:layout_constraintStart_toStartOf="@+id/emergency_menu_view"
-        app:layout_constraintTop_toTopOf="@+id/emergency_menu_view" />
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="52dp"
@@ -138,26 +107,6 @@
         app:layout_constraintEnd_toEndOf="@+id/detect_menu_view"
         app:layout_constraintStart_toStartOf="@+id/detect_menu_view"
         app:layout_constraintTop_toBottomOf="@+id/crowding_menu_tv" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="52dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="19dp"
-        android:src="@android:drawable/ic_menu_agenda"
-        app:layout_constraintEnd_toEndOf="@+id/news_view_menu"
-        app:layout_constraintStart_toStartOf="@+id/news_view_menu"
-        app:layout_constraintTop_toBottomOf="@+id/news_menu_tv" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="52dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="19dp"
-        android:src="@android:drawable/ic_menu_call"
-        app:layout_constraintEnd_toEndOf="@+id/emergency_menu_view"
-        app:layout_constraintStart_toStartOf="@+id/emergency_menu_view"
-        app:layout_constraintTop_toBottomOf="@+id/emergency_menu_tv" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -170,5 +119,83 @@
         app:layout_constraintEnd_toEndOf="@+id/add_trip_menu_view"
         app:layout_constraintStart_toStartOf="@+id/add_trip_menu_view"
         app:layout_constraintTop_toBottomOf="@+id/add_trip_menu_tv" />
+
+    <TextView
+        android:id="@+id/nearest_station_home_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="56dp"
+        android:text="less crowded station from my place"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_view" />
+
+    <View
+        android:id="@+id/first_nearest_station_vw"
+        android:layout_width="0dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/news_rv_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nearest_station_home_tv" />
+
+    <TextView
+        android:id="@+id/station_name_tv"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="29dp"
+        android:text="fetching the station"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/first_nearest_station_vw"
+        app:layout_constraintStart_toStartOf="@+id/first_nearest_station_vw"
+        app:layout_constraintTop_toTopOf="@+id/first_nearest_station_vw" />
+
+    <TextView
+        android:id="@+id/station_address_tv"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="29dp"
+        android:text="fetching the station name"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/first_nearest_station_vw"
+        app:layout_constraintStart_toStartOf="@+id/first_nearest_station_vw"
+        app:layout_constraintTop_toBottomOf="@+id/station_name_tv" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="19dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="18dp"
+        android:src="@android:drawable/ic_menu_mylocation"
+        app:layout_constraintBottom_toBottomOf="@+id/first_nearest_station_vw"
+        app:layout_constraintStart_toStartOf="@+id/first_nearest_station_vw"
+        app:layout_constraintTop_toBottomOf="@+id/station_address_tv" />
+
+    <TextView
+        android:id="@+id/nearest_distance_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="22dp"
+        android:text="fetching the distance"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="@+id/first_nearest_station_vw"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/station_address_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

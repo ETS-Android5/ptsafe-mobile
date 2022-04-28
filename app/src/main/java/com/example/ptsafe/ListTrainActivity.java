@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ptsafe.adapter.NewsAdapter;
@@ -99,7 +100,7 @@ public class ListTrainActivity extends AppCompatActivity {
     }
 
     private void setNewsOnClickListener(final List<NewsStop> newsStopsData) {
-        listener = position -> {
+        newsTitleListener = position -> {
             Intent intent = new Intent(ListTrainActivity.this, NewsDetails.class);
             Bundle bundle = new Bundle();
             bundle.putString("newsId", newsStopsData.get(position).getNewsId());
@@ -170,6 +171,7 @@ public class ListTrainActivity extends AppCompatActivity {
                         trainAdapter = new TrainAdapter(trainsData, listener);
                         availableTrainsRv.addItemDecoration(new DividerItemDecoration(getApplication(),
                                 LinearLayoutManager.VERTICAL));
+                        removeDivider(availableTrainsRv);
                         availableTrainsRv.setAdapter(trainAdapter);
                         availableTrainsRv.setLayoutManager(trainLayoutManager);
                     }
@@ -178,9 +180,21 @@ public class ListTrainActivity extends AppCompatActivity {
         });
     }
 
+    private void removeDivider(RecyclerView rv) {
+        for (int i = 0; i < rv.getItemDecorationCount(); i++) {
+            if (rv.getItemDecorationAt(i) instanceof DividerItemDecoration)
+                rv.removeItemDecorationAt(i);
+        }
+    }
+
     private double getApproximateDistance(String strAddress) {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        double stopLatitude = bundle.getDouble("stopLatitude");
+        double stopLongitude = bundle.getDouble("stopLongitude");
         LatLng coordinates = getLocationFromAddress(strAddress);
-        return distance(latitude, longitude, coordinates.latitude, coordinates.longitude);
+//        Log.i("distance", String.valueOf(distance(coordinates.latitude, coordinates.longitude, stopLatitude, stopLongitude)));
+        return distance(stopLatitude, stopLongitude, coordinates.latitude, coordinates.longitude);
     }
 
     private LatLng getLocationFromAddress(String strAddress) {
@@ -238,7 +252,6 @@ public class ListTrainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 JSONObject resultObj = null;
-                List<NewsStop> newsStopsData = new ArrayList<>();
                 try {
                     resultObj = new JSONObject(response.body().string());
                 } catch (JSONException e) {
@@ -261,12 +274,15 @@ public class ListTrainActivity extends AppCompatActivity {
                         String newsContent = obj.getString("news_content");
                         String newsUrl = obj.getString("news_url");
                         NewsStop news = new NewsStop(newsId, newsTitle, newsFullAddress, newsImageUrl, newsContent, newsUrl);
-                        newsStopsData.add(news);
+                        newsStopData.add(news);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
+//                Log.i("news", newsStopData.get(5).getNewsAddress());
+//                Log.i("distance", String.valueOf(getApproximateDistance(newsStopData.get(5).getNewsAddress())));
                 nearestNewsStopData = newsStopData.stream().filter(item -> getApproximateDistance(item.getNewsAddress()) < 1.5).collect(Collectors.toList());
+//                Log.i("nearestNewsSize", String.valueOf(newsStopData.stream().filter(item -> getApproximateDistance(item.getNewsAddress()) < 1.5).collect(Collectors.toList())));
                 if (nearestNewsStopData.size() == 0) {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -293,8 +309,9 @@ public class ListTrainActivity extends AppCompatActivity {
         newsTitleAdapter = new NewsTitleAdapter(nearestNewsStopData, newsTitleListener);
         crimeNewsRv.addItemDecoration(new DividerItemDecoration(getApplication(),
                 LinearLayoutManager.VERTICAL));
+        removeDivider(crimeNewsRv);
         crimeNewsRv.setAdapter(newsTitleAdapter);
-        crimeNewsRv.setLayoutManager(trainLayoutManager);
+        crimeNewsRv.setLayoutManager(newsLayoutManager);
     }
 
     private void initData() {

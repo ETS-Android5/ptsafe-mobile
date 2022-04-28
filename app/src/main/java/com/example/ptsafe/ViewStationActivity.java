@@ -157,6 +157,8 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
         Bundle bundle = new Bundle();
         bundle.putInt("stopId", stopId);
         bundle.putInt("destinationType", getSpinnerItemNumber(inOutSpinner));
+        bundle.putDouble("stopLatitude", nearestStops.getStopLat());
+        bundle.putDouble("stopLongitude", nearestStops.getStopLong());
         bundle.putDouble("latitude", dest.latitude);
         bundle.putDouble("longitude", dest.longitude);
         bundle.putString("currentAddress", currentAddress);
@@ -259,7 +261,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
             }
             Marker marker = mMap.addMarker(new MarkerOptions().
                     position(coordinate).title(stop.getStopName())
-                    .snippet("Passengers: " + stop.getPaxWeekday() + ", Police stations: " + stop.getTotalPoliceStations())
+                    .snippet("Crowdedness per platform: " + stop.getCrowdednessDensity() + ", Police stations: " + stop.getTotalPoliceStations())
                     .icon(markerColor));
             stationMarkers.put(marker.getId(), stop.getStopId());
             index++;
@@ -301,10 +303,10 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                         String stopName = obj.getString("stop_name");
                         float stopLat = (float) obj.getDouble("stop_lat");
                         float stopLong = (float) obj.getDouble("stop_lon");
-                        int paxWeekday = obj.getInt("pax_weekday");
+                        float crowdednessDensity = (float) obj.getDouble("crowdedness_density");
                         int totalPoliceStation = obj.getInt("total_police_station");
                         float distanceInKm = (float) obj.getDouble("distance_in_km");
-                        NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, paxWeekday, totalPoliceStation, distanceInKm);
+                        NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, crowdednessDensity, totalPoliceStation, distanceInKm);
                         nearestStops.add(newStop);
                     } catch (JSONException e) {
                         e.printStackTrace();

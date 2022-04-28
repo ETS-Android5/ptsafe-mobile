@@ -5,11 +5,15 @@ import static com.example.ptsafe.AddNewsActivity.JSON;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +34,12 @@ import com.example.ptsafe.model.PostCrowdedness;
 import com.example.ptsafe.model.PostNews;
 import com.example.ptsafe.model.RouteByDestinationType;
 import com.example.ptsafe.model.StopByRouteId;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -38,8 +48,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.stream.Collectors;
 
@@ -54,12 +68,14 @@ public class CrowdednessReportActivity extends AppCompatActivity {
 
     private TextView levelOrCrowdednessTv;
     private TextView crowdednessInstructionTv;
+    private EditText carriageNumberEt;
     private Spinner directionReportSpinner;
     private AutoCompleteTextView trainNameReportEt;
     private AutoCompleteTextView stopNameReportEt;
-    private Spinner dayReportSpinner;
+//    private Spinner dayReportSpinner;
+    private EditText dayReportEt;
     private AutoCompleteTextView timeReportEt;
-    private Spinner carriageNumberSpinner;
+//    private Spinner carriageNumberSpinner;
     private EditText criminalReportEt;
     private EditText crowdednessLevelEt;
     private Button reportCrowdednessBtn;
@@ -69,15 +85,22 @@ public class CrowdednessReportActivity extends AppCompatActivity {
     private String stopId;
     private List<RouteByDestinationType> routes;
     private List<StopByRouteId> stops;
+    Location currentLocation;
     private List<DepartureTimesByRouteDirectionStops> departureTimes;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    private static final int REQUEST_CODE = 101;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crowdedness_report);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        getCurrentLocation();
         initVars();
         initView();
+        dayReportEt.setText(getCurrentDayName());
         getDataFromIntent();
         showGuidelines(crowdednessValue);
         directionReportSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -106,11 +129,13 @@ public class CrowdednessReportActivity extends AppCompatActivity {
         });
 
         stopNameReportEt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
                     if (stopNameReportEt.getText().toString().trim().length() != 0) {
                         stopId = stopNameReportEt.getText().toString().split(":")[0].trim();
+                        carriageNumberEt.setText(String.valueOf(getCurrentCarriageNumber(getCurrentStop(), currentLocation)));
                         getAllDepartureTimesByDirectionRouteStops(destinationType, routeId, stopId);
                     }
                 }
@@ -126,13 +151,89 @@ public class CrowdednessReportActivity extends AppCompatActivity {
                         && criminalReportEt.getText().toString().trim().length() != 0
                         && crowdednessLevelEt.getText().toString().trim().length() != 0) {
                     String departureTime = timeReportEt.getText().toString();
-                    String day = dayReportSpinner.getSelectedItem().toString();
-                    int carriageNumber = Integer.parseInt(carriageNumberSpinner.getSelectedItem().toString());
+                    String day = dayReportEt.getText().toString().trim();
+//                    String day = dayReportSpinner.getSelectedItem().toString();
+                    int carriageNumber = Integer.parseInt(carriageNumberEt.getText().toString());
+//                    int carriageNumber = Integer.parseInt(carriageNumberSpinner.getSelectedItem().toString());
                     String criminalActivity = criminalReportEt.getText().toString();
                     createCrowdedness(Integer.parseInt(stopId), routeId, departureTime, destinationType, day , carriageNumber, crowdednessValue, criminalActivity);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Please fill all the columns first!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private StopByRouteId getCurrentStop() {
+        return stops.stream().filter(item -> item.getStopId() == Integer.parseInt(stopId)).collect(Collectors.toList()).get(0);
+    }
+
+    private String getCurrentDayName() {
+        String[] dayNames = new DateFormatSymbols().getWeekdays();
+        Calendar cal = Calendar.getInstance();
+        return dayNames[cal.get(Calendar.DAY_OF_WEEK)].toLowerCase();
+    }
+
+    private int getCurrentCarriageNumber(StopByRouteId stop, Location currLocation) {
+        double distanceFromFront = distance(stop.getLatitude(), stop.getLongitude(), currLocation.getLatitude(), currLocation.getLongitude()) * 1000;
+        if ( distanceFromFront <= 246.5) {
+            Log.i("currentCarriage", String.valueOf((int) Math.floor(distanceFromFront / 24.65)));
+            return (int) Math.floor(distanceFromFront / 24.65);
+        }
+        return new Random().nextInt(10 - 1 + 1) + 1;
+        //train length = 24.65 * 10 = 246.5 m
+        //carriage length = 24.65 m
+        //carriage width = 3.04 m
+        //source: wikipedia
+    }
+
+    //get distance in km
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        dist = dist * 0.8684;
+        return (dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        switch (REQUEST_CODE) {
+//            case REQUEST_CODE:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    getCurrentLocation();
+//                }
+//                break;
+//        }
+//    }
+
+    private void getCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+            return;
+        }
+
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    currentLocation = location;
                 }
             }
         });
@@ -170,9 +271,11 @@ public class CrowdednessReportActivity extends AppCompatActivity {
         directionReportSpinner = findViewById(R.id.direction_report_spinner);
         trainNameReportEt = findViewById(R.id.line_name_report_et);
         stopNameReportEt = findViewById(R.id.stop_name_report_et);
-        dayReportSpinner = findViewById(R.id.day_report_spinner);
+//        dayReportSpinner = findViewById(R.id.day_report_spinner);
+        dayReportEt = findViewById(R.id.day_report_et);
         timeReportEt = findViewById(R.id.time_report_et);
-        carriageNumberSpinner = findViewById(R.id.carriage_number_spinner);
+        carriageNumberEt = findViewById(R.id.carriage_number_et);
+//        carriageNumberSpinner = findViewById(R.id.carriage_number_spinner);
         criminalReportEt = findViewById(R.id.criminal_report_et);
         crowdednessLevelEt = findViewById(R.id.crowdedness_level_et);
         reportCrowdednessBtn = findViewById(R.id.report_crowdedness_btn);
@@ -284,7 +387,9 @@ public class CrowdednessReportActivity extends AppCompatActivity {
                         String routeId = obj.getString("route_id");
                         int stopId = obj.getInt("stop_id");
                         String stopName = obj.getString("stop_name");
-                        StopByRouteId newStop = new StopByRouteId(routeId, stopId, stopName);
+                        double latitude = obj.getDouble("stop_lat");
+                        double longitude = obj.getDouble("stop_lon");
+                        StopByRouteId newStop = new StopByRouteId(routeId, stopId, stopName, latitude, longitude);
                         stops.add(newStop);
                     } catch (JSONException e) {
                         e.printStackTrace();

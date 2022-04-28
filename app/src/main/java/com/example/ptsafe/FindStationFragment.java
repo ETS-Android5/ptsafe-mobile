@@ -163,9 +163,18 @@ public class FindStationFragment extends Fragment {
         adapter = new TripAdapter(tripWishlistsData, listener);
         tripRv.addItemDecoration(new DividerItemDecoration(getContext(),
                 LinearLayoutManager.VERTICAL));
+        removeDivider(tripRv);
         tripRv.setAdapter(adapter);
         tripRv.setLayoutManager(layoutManager);
     }
+
+    private void removeDivider(RecyclerView rv) {
+        for (int i = 0; i < rv.getItemDecorationCount(); i++) {
+            if (rv.getItemDecorationAt(i) instanceof DividerItemDecoration)
+                rv.removeItemDecorationAt(i);
+        }
+    }
+
     private void deleteTripWishlistById(String wishlistId) {
         OkHttpClient client = new OkHttpClient();
         String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/report/deleteTripWishlistById?wishlistid=" + wishlistId;

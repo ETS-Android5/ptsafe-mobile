@@ -1,26 +1,62 @@
 package com.example.ptsafe;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ptsafe.R;
+import com.example.ptsafe.model.NearestStops;
+import com.example.ptsafe.model.StopByRouteId;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class HomeFragment extends Fragment {
 
     private View crowdedMenuVw;
-    private View emergencyMenuVw;
-    private View newsMenuVw;
     private View addTripMenuVw;
+    private TextView stationNameTv;
+    private TextView stationAddressTv;
+    private TextView nearestDistanceTv;
+    Location currentLocation;
+    private NearestStops nearestStop;
+    private static final int REQUEST_CODE = 101;
+    FusedLocationProviderClient fusedLocationProviderClient;
 
     public HomeFragment() {
 
@@ -32,10 +68,11 @@ public class HomeFragment extends Fragment {
         // Inflate the View for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         getActivity().setTitle("Home");
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+        initVars();
         initView(view);
+        getCurrentLocation();
         crowdedMenuVw.setOnClickListener(setMenuBtn("crowd"));
-        emergencyMenuVw.setOnClickListener(setMenuBtn("emergency"));
-        newsMenuVw.setOnClickListener(setMenuBtn("news"));
         addTripMenuVw.setOnClickListener(setMenuBtn("trip"));
         return view;
     }
@@ -51,27 +88,132 @@ public class HomeFragment extends Fragment {
                         CrowdingDetectFragment crowdingName = new CrowdingDetectFragment();
                         fragmentTransaction.replace(R.id.content_frame, crowdingName);
                         fragmentTransaction.commit(); break;
-                    case "emergency":
-                        EmergencyFragment emergencyName = new EmergencyFragment();
-                        fragmentTransaction.replace(R.id.content_frame, emergencyName);
-                        fragmentTransaction.commit(); break;
-                    case "news":
-                        NewsFragment newsName = new NewsFragment();
-                        fragmentTransaction.replace(R.id.content_frame, newsName);
-                        fragmentTransaction.commit(); break;
                     case "trip":
                         FindStationFragment findStationName = new FindStationFragment();
                         fragmentTransaction.replace(R.id.content_frame, findStationName);
+                        fragmentTransaction.commit(); break;
                 }
 
             }
         };
     }
 
+    private void initVars() {
+        nearestStop = new NearestStops();
+    }
+
     private void initView(View view) {
         crowdedMenuVw = view.findViewById(R.id.detect_menu_view);
-        emergencyMenuVw = view.findViewById(R.id.emergency_menu_view);
-        newsMenuVw = view.findViewById(R.id.news_view_menu);
         addTripMenuVw = view.findViewById(R.id.add_trip_menu_view);
+        stationNameTv = view.findViewById(R.id.station_name_tv);
+        stationAddressTv = view.findViewById(R.id.station_address_tv);
+        nearestDistanceTv = view.findViewById(R.id.nearest_distance_tv);
     }
+
+    private void getCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+            return;
+        }
+
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    currentLocation = location;
+                    getAllNearestStopsToCurrentLocation(currentLocation);
+                }
+            }
+        });
+    }
+
+    private String getAddressFromCoordinate(double latitude, double longitude) throws IOException {
+        Geocoder coder = new Geocoder(this.getContext());
+        List<Address> addresses;
+
+        addresses = coder.getFromLocation(latitude, longitude, 1);
+
+        String stopAddress = addresses.get(0).getAddressLine(0);
+        return stopAddress;
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        dist = dist * 0.8684;
+        return (dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
+    private void getAllNearestStopsToCurrentLocation(Location currLocation){
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/report/findNearestStopsByCurrLocation?lat=" + currLocation.getLatitude() + "&long=" + currLocation.getLongitude();
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                JSONObject resultObj = null;
+                List<NearestStops> nearestStopsData = new ArrayList<>();
+                try {
+                    resultObj = new JSONObject(response.body().string());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONArray data = null;
+                try {
+                    data = resultObj.getJSONArray("message");
+                    Log.d("JSONArrayLength", String.valueOf(data.length()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                for(int i = 0; i < data.length(); i++) {
+                    JSONObject obj = null;
+                    try {
+                        obj = data.getJSONObject(i);
+                        int stopId = obj.getInt("stop_id");
+                        String stopName = obj.getString("stop_name");
+                        float stopLat = (float) obj.getDouble("stop_lat");
+                        float stopLong = (float) obj.getDouble("stop_lon");
+                        float crowdednessDensity = (float) obj.getDouble("crowdedness_density");
+                        int totalPoliceStation = obj.getInt("total_police_station");
+                        float distanceInKm = (float) obj.getDouble("distance_in_km");
+                        NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, crowdednessDensity, totalPoliceStation, distanceInKm);
+                        nearestStopsData.add(newStop);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                nearestStop = nearestStopsData.get(0);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stationNameTv.setText(nearestStop.getStopName());
+                        try {
+                            stationAddressTv.setText(getAddressFromCoordinate(nearestStop.getStopLat(), nearestStop.getStopLong()));
+                        } catch (IOException e) {
+                            Toast.makeText(getContext(), "Cannot find the address!", Toast.LENGTH_SHORT).show();
+                        }
+                        nearestDistanceTv.setText(String.format("%.02f",distance(currLocation.getLatitude(), currLocation.getLongitude(), nearestStop.getStopLat(), nearestStop.getStopLong())) + " km away");
+                    }
+                });
+            }
+        });
+    };
 }

@@ -33,6 +33,10 @@
 
     <TextView
         android:id="@+id/destination_name_tv"
+        android:background="@drawable/destination_name_background_shape"
+        android:paddingBottom="2dp"
+        android:paddingLeft="5dp"
+        android:textColor="@color/white"
         android:layout_width="150dp"
         android:layout_height="0dp"
         android:layout_marginTop="14dp"
@@ -44,11 +48,15 @@
 
     <TextView
         android:id="@+id/source_name_tv"
-        android:layout_width="172dp"
+        android:layout_width="150dp"
         android:layout_height="0dp"
-        android:layout_marginStart="40dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="5dp"
+        android:textColor="@color/white"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="41dp"
+        android:background="@drawable/source_name_background_shape"
         android:text="source"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/destination_name_tv"
