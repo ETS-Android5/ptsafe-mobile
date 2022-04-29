@@ -59,11 +59,21 @@ public class BoxBreathingActivity extends AppCompatActivity {
     private long timeStamp = 8640000;
     private boolean end = false;
     private MediaPlayer mMediaPlayer;
+    private static MediaPlayer focusMediaPlayer;
+    private static MediaPlayer relaxMediaPlayer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_box_breathing);
+        relaxMediaPlayer = new MediaPlayer();
+        relaxMediaPlayer = MediaPlayer.create(this, R.raw.relax);
+        relaxMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        relaxMediaPlayer.setLooping(false);
+        focusMediaPlayer = new MediaPlayer();
+        focusMediaPlayer = MediaPlayer.create(this, R.raw.focus);
+        focusMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        focusMediaPlayer.setLooping(false);
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer = MediaPlayer.create(this, R.raw.bensound_relaxing);
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -85,9 +95,9 @@ public class BoxBreathingActivity extends AppCompatActivity {
             public void onFinish() {
                 end = true;
                 tvCircle.setText("");
-                tvCircleTxt.setText("");
+                tvCircleTxt.setText("well done!");
                 ll.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), "well done", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "well done", Toast.LENGTH_SHORT).show();
             }
         };
         llShow.setVisibility(View.GONE);
@@ -107,6 +117,8 @@ public class BoxBreathingActivity extends AppCompatActivity {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();
         }
+        focusMediaPlayer.stop();
+        relaxMediaPlayer.stop();
     }
 
     private int current = 1;
@@ -119,7 +131,7 @@ public class BoxBreathingActivity extends AppCompatActivity {
         /**
          * countdown minimum
          */
-        public static int MIN_COUNT = 0;
+        public int MIN_COUNT = 0;
         //Create a weak reference to MainActivity
         final WeakReference<BoxBreathingActivity> mWeakReference;
 
@@ -159,12 +171,17 @@ public class BoxBreathingActivity extends AppCompatActivity {
                         activity.STATE += 1;
                     }
                     if (activity.SHOW == 0) {
+                        relaxMediaPlayer.start();
                         activity.tvCircleTxt.setText("Relax and get comfortable");
-
                     } else if (activity.SHOW == 1) {
                         activity.tvCircleTxt.setText("focus on your breathing");
+                        focusMediaPlayer.start();
+                        relaxMediaPlayer.stop();
 
                     } else {
+                        if (focusMediaPlayer.isPlaying()) {
+                            focusMediaPlayer.stop();
+                        }
                         if (activity.STATE == 2 || ((activity.STATE - 2) % 3 == 0)) {
                             if (!activity.end) {
                                 activity.tvCircleTxt.setText("breathe in ");

@@ -24,6 +24,11 @@
         affects commuters in a crowded public transportations, it is better to check the crowdedness level
         on your surroundings.
     </string>
+    <string name="welcome_meditation_content">
+        Meditation helps to assist you if you are anxious in the crowds or after getting offended. Using light breathing, it helps you to ease your light uncomfortable feelings
+        by series of short interval breathing. However, if you are heavily stressful, it would be better to use box interval breathing
+        to take your mindset back to the reality.
+    </string>
     <string name="welcome_home">Hello User!</string>
     <string name="take_photo">take a photo</string>
     <string name="back_menu">back to main menu</string>

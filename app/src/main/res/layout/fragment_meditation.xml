@@ -7,16 +7,58 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <View
+        android:id="@+id/meditation_view"
+        android:layout_width="0dp"
+        android:layout_height="303dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/crowding_detection_view_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/meditation_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center"
+        android:text="@string/welcome_meditation_content"
+        app:layout_constraintEnd_toEndOf="@+id/meditation_view"
+        app:layout_constraintStart_toStartOf="@+id/meditation_view"
+        app:layout_constraintTop_toBottomOf="@+id/meditation_title_tv" />
+
+    <TextView
+        android:id="@+id/meditation_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="10dp"
+        android:text="welcome to the meditation section"
+        android:textColor="@color/green_secondary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/meditation_view" />
+
     <LinearLayout
         android:id="@+id/ll_box"
         android:layout_width="178dp"
         android:layout_height="145dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="28dp"
         android:background="@drawable/white_bg"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meditation_label_tv">
+        app:layout_constraintTop_toBottomOf="@+id/meditation_view">
 
         <ImageView
             android:id="@+id/box_iv"
@@ -42,13 +84,14 @@
         android:layout_width="178dp"
         android:layout_height="145dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="23dp"
         android:background="@drawable/white_bg"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/ll_box"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meditation_label_tv">
+        app:layout_constraintTop_toBottomOf="@+id/meditation_view">
 
         <ImageView
             android:id="@+id/light_iv"
@@ -69,17 +112,16 @@
             android:textSize="18dp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/meditation_label_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="308dp"
-        android:text="Meditation"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="102dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="145dp"
+        app:layout_constraintEnd_toEndOf="@+id/meditation_view"
+        app:layout_constraintStart_toStartOf="@+id/meditation_view"
+        app:layout_constraintTop_toBottomOf="@+id/meditation_content_tv"
+        app:srcCompat="@drawable/meditation_people" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

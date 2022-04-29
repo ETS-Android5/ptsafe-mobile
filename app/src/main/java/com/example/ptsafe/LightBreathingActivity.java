@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,15 +47,36 @@ public class LightBreathingActivity extends AppCompatActivity {
     private long timeStamp = 8640000;
     private boolean end = false;
     private MediaPlayer mMediaPlayer;
+    private MediaPlayer focusMediaPlayer;
+    private MediaPlayer relaxMediaPlayer;
+    private MediaPlayer inMediaPlayer;
+    private MediaPlayer outMediaPlayer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light_breathing);
+
+        relaxMediaPlayer = new MediaPlayer();
+        relaxMediaPlayer = MediaPlayer.create(this, R.raw.relax);
+        relaxMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        relaxMediaPlayer.setLooping(false);
+        focusMediaPlayer = new MediaPlayer();
+        focusMediaPlayer = MediaPlayer.create(this, R.raw.focus);
+        focusMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        focusMediaPlayer.setLooping(false);
+        inMediaPlayer = new MediaPlayer();
+        inMediaPlayer = MediaPlayer.create(this, R.raw.in);
+        inMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        inMediaPlayer.setLooping(false);
+        outMediaPlayer = new MediaPlayer();
+        outMediaPlayer = MediaPlayer.create(this, R.raw.out);
+        outMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        outMediaPlayer.setLooping(false);
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer = MediaPlayer.create(this, R.raw.bensound_relaxing);
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mMediaPlayer.setLooping(true);
+        mMediaPlayer.setLooping(false);
         mMediaPlayer.start();
         ButterKnife.bind(this);
 
@@ -72,8 +94,8 @@ public class LightBreathingActivity extends AppCompatActivity {
             public void onFinish() {
                 end = true;
                 tvCircle.setText("");
-                tvCircleTxt.setText("");
-                Toast.makeText(getApplicationContext(),"well done",Toast.LENGTH_SHORT).show();
+                tvCircleTxt.setText("well done!");
+//                Toast.makeText(getApplicationContext(),"well done",Toast.LENGTH_SHORT).show();
             }
         };
         //create a handler
@@ -92,14 +114,18 @@ public class LightBreathingActivity extends AppCompatActivity {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();
         }
+        focusMediaPlayer.stop();
+        relaxMediaPlayer.stop();
+        inMediaPlayer.stop();
+        outMediaPlayer.stop();
     }
 
 
-    public static class CountdownTimeHandler extends Handler {
+    public class CountdownTimeHandler extends Handler {
         /**
          * countdown minimum
          */
-        public static int MIN_COUNT = 0;
+        public int MIN_COUNT = 0;
         //Create a weak reference to MainActivity
         final WeakReference<LightBreathingActivity> mWeakReference;
 
@@ -143,22 +169,31 @@ public class LightBreathingActivity extends AppCompatActivity {
 
                         if (!activity.end){
                             activity.tvCircleTxt.setText("Relax and get comfortable");
+                            relaxMediaPlayer.start();
+
                         }
                     } else if (activity.SHOW == 1) {
                         //activity.tvButtom.setVisibility(View.GONE);
                         if (!activity.end){
                             activity.tvCircleTxt.setText("focus on your breathing");
+                            focusMediaPlayer.start();
+                            relaxMediaPlayer.stop();
                         }
 
                     } else {
+                        if (focusMediaPlayer.isPlaying()) {
+                            focusMediaPlayer.stop();
+                        }
                         if (activity.STATE % 2 == 0) {
                             if (!activity.end){
                                 activity.tvCircleTxt.setText("breathe in ");
+//                                inMediaPlayer.start();
                             }
 
                         } else {
                             if (!activity.end){
                                 activity.tvCircleTxt.setText("breathe out ");
+//                                outMediaPlayer.start();
                             }
 
                         }
