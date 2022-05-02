@@ -49,6 +49,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
     private Button backToMainBtn;
     private Button reportBtn;
     private Button readMoreBtn;
+    private float crowdnessValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         backToMainBtn.setOnClickListener(setBackToMainMenuBtn());
+        reportBtn.setOnClickListener(setReportBtn());
     }
 
     private View.OnClickListener setBackToMainMenuBtn() {
@@ -68,6 +70,19 @@ public class ShowCrowdActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ShowCrowdActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        };
+    }
+
+    private View.OnClickListener setReportBtn() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShowCrowdActivity.this, CrowdednessReportActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putFloat("crowdnessLevel", crowdnessValue);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         };
@@ -96,7 +111,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
 
     //todo: create post multiform function
     private void detectObject(Uri uri) {
-        String url = "https://ptsafe-object-detection-api.herokuapp.com/v1/predict";
+        String url = "http://ptsafeyoloapi-env-1.eba-2wtk3jqk.us-east-1.elasticbeanstalk.com/v1/predict";
         File file = null;
         String realPath = getRealPath(uri);
         try {
@@ -144,6 +159,7 @@ public class ShowCrowdActivity extends AppCompatActivity {
 
                 int finalNumberOfPeople = numberOfPeople;
                 float finalPercentageOfPeople = percentageOfPeople;
+                crowdnessValue = percentageOfPeople;
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

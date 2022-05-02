@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_primary">#FFFFFF</color>
+    <color name="white_secondary">#fafafa</color>
     <color name="blue_primary">#23A9F4</color>
     <color name="news_rv_color">#F7F7F7</color>
     <color name="blue_secondary">#541929B4</color>
@@ -18,4 +19,7 @@
     <color name="blue_menu_crowd">#047FD8</color>
     <color name="blue_menu_news">#34A9EB</color>
     <color name="blue_menu_emergency">#6CEBF3</color>
+    <color name="blue_menu_add_trip">#047FD8</color>
+    <color name="grey_secondary">#777877</color>
+    <color name="orange_secondary">#b86d27</color>
 </resources>

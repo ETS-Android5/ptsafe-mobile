@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShowCarriageDetails">
+
+    <TextView
+        android:id="@+id/carriage_info_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="177dp"
+        android:text="Carriage information"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/carriage_detail_vw"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/crowding_detection_view_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carriage_info_title_tv" />
+
+    <TextView
+        android:id="@+id/carriage_crime_activities_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="81dp"
+        android:text="@string/recorded_crime_activities"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/carriage_detail_vw"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/carriage_detail_vw"
+        app:layout_constraintTop_toBottomOf="@+id/crowdedness_carriage_value_tv" />
+
+    <TextView
+        android:id="@+id/crowdedness_carriage_label_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="81dp"
+        android:text="@string/level_of_crowdedness_report"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/carriage_detail_vw"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/carriage_detail_vw"
+        app:layout_constraintTop_toTopOf="@+id/carriage_detail_vw" />
+
+    <TextView
+        android:id="@+id/crowdedness_carriage_value_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="81dp"
+        app:layout_constraintEnd_toEndOf="@+id/carriage_detail_vw"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/carriage_detail_vw"
+        app:layout_constraintTop_toBottomOf="@+id/crowdedness_carriage_label_tv" />
+
+    <TextView
+        android:id="@+id/carriage_crime_content_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="81dp"
+        android:text="No crime activities detected"
+        app:layout_constraintEnd_toEndOf="@+id/carriage_detail_vw"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/carriage_detail_vw"
+        app:layout_constraintTop_toBottomOf="@+id/carriage_crime_activities_tv" />
+
+    <TextView
+        android:id="@+id/carriage_instruction_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="81dp"
+        android:text="@string/instruction_label"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/carriage_detail_vw"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/carriage_detail_vw"
+        app:layout_constraintTop_toBottomOf="@+id/carriage_crime_content_tv" />
+
+    <TextView
+        android:id="@+id/carriage_instruction_value_tv"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="81dp"
+        android:text="No instructions"
+        app:layout_constraintEnd_toEndOf="@+id/carriage_detail_vw"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/carriage_detail_vw"
+        app:layout_constraintTop_toBottomOf="@+id/carriage_instruction_tv" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/add_comments_two_layout"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <Button
+            android:id="@+id/add_carriage_btn"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/blue_primary"
+            android:text="@string/add_trip_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -136,7 +136,7 @@ public class NewsFragment extends Fragment {
     //get news data by implementing okhttp
     public void getAllNews(){
         OkHttpClient client = new OkHttpClient();
-        String url = "https://ptsafe-backend.herokuapp.com/v1/news/findAll";
+        String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/news/findAll";
         Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -186,6 +186,7 @@ public class NewsFragment extends Fragment {
                         adapter = new NewsAdapter(newsItems, listener);
                         newsRv.addItemDecoration(new DividerItemDecoration(getContext(),
                                 LinearLayoutManager.VERTICAL));
+                        removeDivider(newsRv);
                         newsRv.setAdapter(adapter);
                         newsRv.setLayoutManager(layoutManager);
                         addNewsBtn.setOnClickListener(setAddCommentsBtnListener());
@@ -194,5 +195,12 @@ public class NewsFragment extends Fragment {
             }
 
         });
-    };
+    }
+
+    private void removeDivider(RecyclerView rv) {
+        for (int i = 0; i < rv.getItemDecorationCount(); i++) {
+            if (rv.getItemDecorationAt(i) instanceof DividerItemDecoration)
+                rv.removeItemDecorationAt(i);
+        }
+    }
 }

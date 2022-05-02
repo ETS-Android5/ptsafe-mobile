@@ -2,8 +2,12 @@ package com.example.ptsafe;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ptsafe.model.Comment;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,11 +37,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText passwordEt;
     private Button loginBtn;
+    private static final int REQUEST_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getPermission();
         initView();
         loginBtn.setOnClickListener(setLoginListener());
     }
@@ -54,6 +62,14 @@ public class LoginActivity extends AppCompatActivity {
         };
     }
 
+    private void getPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+            return;
+        }
+    }
+
     private boolean isPasswordEtEmpty(EditText passwordEt) {
         String password = passwordEt.getText().toString();
         if (password.matches("")) {
@@ -69,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         else {
             String password = passwordEt.getText().toString();
             OkHttpClient client = new OkHttpClient();
-            String url = "https://ptsafe-backend.herokuapp.com/v1/credential/findByUserNameAndPassword?username=ta27_ptsafe&password=" + password;
+            String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/credential/findByUserNameAndPassword?username=ta27_ptsafe&password=" + password;
             Request request = new Request.Builder().url(url).build();
             client.newCall(request).enqueue(new Callback() {
                 @Override

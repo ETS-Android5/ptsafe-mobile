@@ -89,7 +89,7 @@ public class EmergencyFragment extends Fragment {
     //get news data by implementing okhttp
     public void getAllEmergency(){
         OkHttpClient client = new OkHttpClient();
-        String url = "https://ptsafe-backend.herokuapp.com/v1/emergency/findAll";
+        String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/emergency/findAll";
         Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -134,6 +134,7 @@ public class EmergencyFragment extends Fragment {
                         adapter = new EmergencyAdapter(emergencyItems, listener);
                         emergencyRv.addItemDecoration(new DividerItemDecoration(getContext(),
                                 LinearLayoutManager.VERTICAL));
+                        removeDivider(emergencyRv);
                         emergencyRv.setAdapter(adapter);
                         emergencyRv.setLayoutManager(layoutManager);
                     }
@@ -141,7 +142,14 @@ public class EmergencyFragment extends Fragment {
             }
 
         });
-    };
+    }
+
+    private void removeDivider(RecyclerView rv) {
+        for (int i = 0; i < rv.getItemDecorationCount(); i++) {
+            if (rv.getItemDecorationAt(i) instanceof DividerItemDecoration)
+                rv.removeItemDecorationAt(i);
+        }
+    }
 
     public void initView(View view) {
         emergencyRv = view.findViewById(R.id.emergency_rv);
