@@ -34,26 +34,15 @@ Meanwhile, the mobile application is also strictly follows the single responsibi
 - picasso (v2.7)
 - OkHttp3 (v.4.5.0)
 - gson (v2.3)
+- Geocoder (latest)
+- Google Maps API (latest)
 
-## 5. List of endpoints and functionalities
-| View/Fragments | Functionalities
-| :---:   | :-: |
-| MainActivity | Register navigation and fragments |
-| HomeFragment | Home page for the application |
-| EmergencyFragment | List all of emergency contact details|
-| NewsFragment | List all available news and provide sorting function based on news label |
-| CrowdingDetectFragment | Trigger object detection for detecting the crowding level|
-| ShowCrowdActivity | Provide calculation of how many people and and benchmark based on total passengers on a carriage |
-| AddCommentsActivity | Provide a form for users to add comments to a form |
-| AddNewsActivity | Provide a form for users to add news to a form |
-| SplashActivity | Provide a "splash" to our application |
-| NewsDetails | Render information of a specific news |
-
-## 7. Installation
+## 5. Installation
 - Install Android studio on your local machine
 - Fork the github repo to the local machine and run it
 
 
-## 8. Active development branch
-- master (will be merged with the iteration-1 branch after Industry Mentors meeting)
+## 6. Active development branch
+- master (will be merged with the iteration-2 branch after Industry Mentors meeting)
 - iteration-1 (with subbranches under this main branch)
+- iteration-2 (with subbranches under this main branch)
