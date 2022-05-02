@@ -134,6 +134,7 @@ public class EmergencyFragment extends Fragment {
                         adapter = new EmergencyAdapter(emergencyItems, listener);
                         emergencyRv.addItemDecoration(new DividerItemDecoration(getContext(),
                                 LinearLayoutManager.VERTICAL));
+                        removeDivider(emergencyRv);
                         emergencyRv.setAdapter(adapter);
                         emergencyRv.setLayoutManager(layoutManager);
                     }
@@ -141,7 +142,14 @@ public class EmergencyFragment extends Fragment {
             }
 
         });
-    };
+    }
+
+    private void removeDivider(RecyclerView rv) {
+        for (int i = 0; i < rv.getItemDecorationCount(); i++) {
+            if (rv.getItemDecorationAt(i) instanceof DividerItemDecoration)
+                rv.removeItemDecorationAt(i);
+        }
+    }
 
     public void initView(View view) {
         emergencyRv = view.findViewById(R.id.emergency_rv);

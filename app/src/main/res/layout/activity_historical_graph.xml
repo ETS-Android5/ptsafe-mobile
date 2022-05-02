@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HistoricalGraphActivity">
+
+    <View
+        android:id="@+id/crowdedness_vw"
+        android:layout_width="354dp"
+        android:layout_height="121dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/crowding_detection_view_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/historical_bar_tv" />
+
+    <TextView
+        android:id="@+id/historical_bar_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="208dp"
+        android:text="past crowdedness trends"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/historical_barchart_bc"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/year_spinner" />
+
+    <Spinner
+        android:id="@+id/year_spinner"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:entries="@array/historical_year"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crowdedness_vw" />
+
+    <TextView
+        android:id="@+id/rank_label_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Crowdedness rank last year"
+        app:layout_constraintEnd_toEndOf="@+id/crowdedness_vw"
+        app:layout_constraintStart_toStartOf="@+id/crowdedness_vw"
+        app:layout_constraintTop_toTopOf="@+id/crowdedness_vw" />
+
+    <TextView
+        android:id="@+id/crowdedness_value_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="-"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="@+id/crowdedness_vw"
+        app:layout_constraintStart_toStartOf="@+id/crowdedness_vw"
+        app:layout_constraintTop_toBottomOf="@+id/rank_label_tv" />
+</androidx.constraintlayout.widget.ConstraintLayout>

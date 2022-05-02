@@ -112,6 +112,7 @@ public class NewsDetails extends AppCompatActivity {
         adapter = new CommentAdapter(comments);
         commentsRv.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
                 LinearLayoutManager.VERTICAL));
+        removeDivider(commentsRv);
         commentsRv.setAdapter(adapter);
         commentsRv.setLayoutManager(layoutManager);
     }
@@ -184,5 +185,12 @@ public class NewsDetails extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void removeDivider(RecyclerView rv) {
+        for (int i = 0; i < rv.getItemDecorationCount(); i++) {
+            if (rv.getItemDecorationAt(i) instanceof DividerItemDecoration)
+                rv.removeItemDecorationAt(i);
+        }
     }
 }
