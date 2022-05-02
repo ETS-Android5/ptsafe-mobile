@@ -186,6 +186,7 @@ public class NewsFragment extends Fragment {
                         adapter = new NewsAdapter(newsItems, listener);
                         newsRv.addItemDecoration(new DividerItemDecoration(getContext(),
                                 LinearLayoutManager.VERTICAL));
+                        removeDivider(newsRv);
                         newsRv.setAdapter(adapter);
                         newsRv.setLayoutManager(layoutManager);
                         addNewsBtn.setOnClickListener(setAddCommentsBtnListener());
@@ -194,5 +195,12 @@ public class NewsFragment extends Fragment {
             }
 
         });
-    };
+    }
+
+    private void removeDivider(RecyclerView rv) {
+        for (int i = 0; i < rv.getItemDecorationCount(); i++) {
+            if (rv.getItemDecorationAt(i) instanceof DividerItemDecoration)
+                rv.removeItemDecorationAt(i);
+        }
+    }
 }

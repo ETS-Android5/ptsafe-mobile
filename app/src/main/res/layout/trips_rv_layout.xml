@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="320dp"
+    android:layout_marginBottom="5dp"
+    android:elevation="2dp"
     android:background="@drawable/news_rv_shape"
     android:orientation="horizontal">
 
@@ -11,6 +13,7 @@
         android:id="@+id/carriage_number_tv"
         android:layout_width="224dp"
         android:layout_height="23dp"
+        android:elevation="2dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="67dp"
@@ -23,6 +26,7 @@
         android:id="@+id/departure_time_trip_tv"
         android:layout_width="224dp"
         android:layout_height="23dp"
+        android:elevation="2dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="177dp"
@@ -35,6 +39,7 @@
         android:id="@+id/destination_name_tv"
         android:background="@drawable/destination_name_background_shape"
         android:paddingBottom="2dp"
+        android:elevation="2dp"
         android:paddingLeft="5dp"
         android:textColor="@color/white"
         android:layout_width="150dp"
@@ -50,6 +55,7 @@
         android:id="@+id/source_name_tv"
         android:layout_width="150dp"
         android:layout_height="0dp"
+        android:elevation="2dp"
         android:paddingBottom="2dp"
         android:paddingLeft="5dp"
         android:textColor="@color/white"
@@ -66,6 +72,7 @@
     <TextView
         android:id="@+id/route_name_tv"
         android:layout_width="350dp"
+        android:elevation="2dp"
         android:layout_height="23dp"
         android:layout_marginTop="16dp"
         android:text="route name"
@@ -75,6 +82,7 @@
     <TextView
         android:id="@+id/stop_name_tv"
         android:layout_width="300dp"
+        android:elevation="2dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
@@ -87,6 +95,7 @@
     <Button
         android:id="@+id/delete_trip_btn"
         android:layout_width="98dp"
+        android:elevation="2dp"
         android:layout_height="45dp"
         android:layout_marginStart="298dp"
         android:layout_marginEnd="30dp"

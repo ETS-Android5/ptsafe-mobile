@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    android:elevation="2dp"
+    android:layout_marginBottom="5dp"
     android:background="@drawable/news_rv_shape"
     android:orientation="horizontal">
 
@@ -15,6 +17,7 @@
         android:text="Comment title"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +31,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="14dp"
+        android:elevation="2dp"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
         android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
