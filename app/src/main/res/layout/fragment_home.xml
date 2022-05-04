@@ -39,7 +39,7 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="60dp"
-        android:text="@string/find_a_station_label"
+        android:text="my trip"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/add_trip_menu_view"
         app:layout_constraintStart_toStartOf="@+id/add_trip_menu_view"
