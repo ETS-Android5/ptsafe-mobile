@@ -1,9 +1,13 @@
 package com.example.ptsafe;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ptsafe.adapter.NewsAdapter;
 import com.example.ptsafe.adapter.TripAdapter;
@@ -89,8 +94,29 @@ public class FindStationFragment extends Fragment {
     private void setOnClickListener(final List<TripWishlist> tripItems) {
         listener = position -> {
             String wishlistId = tripItems.get(position).getWishlistId();
-            deleteTripWishlistById(wishlistId);
+            showAlertDialog(this.getContext(), wishlistId);
+//            deleteTripWishlistById(wishlistId);
         };
+    }
+
+    private void showAlertDialog(Context context, String wishlistId){
+        AlertDialog.Builder adBuilder = new AlertDialog.Builder(context)
+                .setTitle("Confirm creation")
+                .setMessage("Are you sure you want to delete the trip wishlist?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteTripWishlistById(wishlistId);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert);
+        AlertDialog ad = adBuilder.create();
+        ad.show();
+
+        Button noBtn = ad.getButton(DialogInterface.BUTTON_NEGATIVE);
+        noBtn.setTextColor(Color.BLACK);
+        Button yesBtn = ad.getButton(DialogInterface.BUTTON_POSITIVE);
+        yesBtn.setTextColor(Color.RED);
     }
 
     //get trip wishlist data by implementing okhttp
@@ -193,6 +219,7 @@ public class FindStationFragment extends Fragment {
                     public void run() {
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
+                        Toast.makeText(getContext(), "Successfully delete a trip!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

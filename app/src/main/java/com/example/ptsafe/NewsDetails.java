@@ -74,9 +74,15 @@ public class NewsDetails extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intentFromNewsFragment = getIntent();
+                Bundle data = intentFromNewsFragment.getExtras();
                 Intent intent = new Intent(NewsDetails.this, AddCommentsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("newsId", newsId);
+                bundle.putString("imageUrl", data.getString("imageUrl"));
+                bundle.putString("newsTitle", data.getString("newsTitle"));
+                bundle.putString("newsContent", data.getString("newsContent"));
+                bundle.putString("newsUrl", data.getString("newsUrl"));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
