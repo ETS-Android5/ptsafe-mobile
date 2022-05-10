@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,11 +49,14 @@ import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
 
-    private View crowdedMenuVw;
-    private View addTripMenuVw;
     private TextView stationNameTv;
     private TextView stationAddressTv;
     private TextView nearestDistanceTv;
+    private Button addTripBtn;
+    private Button reportCrowdednessBtn;
+    private Button meditationBtn;
+    private Button newsBtn;
+    private Button emergencyBtn;
     Location currentLocation;
     private NearestStops nearestStop;
     private static final int REQUEST_CODE = 101;
@@ -72,8 +76,11 @@ public class HomeFragment extends Fragment {
         initVars();
         initView(view);
         getCurrentLocation();
-        crowdedMenuVw.setOnClickListener(setMenuBtn("crowd"));
-        addTripMenuVw.setOnClickListener(setMenuBtn("trip"));
+        reportCrowdednessBtn.setOnClickListener(setMenuBtn("crowd"));
+        addTripBtn.setOnClickListener(setMenuBtn("trip"));
+        meditationBtn.setOnClickListener(setMenuBtn("meditation"));
+        newsBtn.setOnClickListener(setMenuBtn("news"));
+        emergencyBtn.setOnClickListener(setMenuBtn("emergency"));
         return view;
     }
 
@@ -92,6 +99,18 @@ public class HomeFragment extends Fragment {
                         FindStationFragment findStationName = new FindStationFragment();
                         fragmentTransaction.replace(R.id.content_frame, findStationName);
                         fragmentTransaction.commit(); break;
+                    case "meditation":
+                        MeditationFragment meditationFragment = new MeditationFragment();
+                        fragmentTransaction.replace(R.id.content_frame, meditationFragment);
+                        fragmentTransaction.commit(); break;
+                    case "news":
+                        NewsFragment newsFragment = new NewsFragment();
+                        fragmentTransaction.replace(R.id.content_frame, newsFragment);
+                        fragmentTransaction.commit(); break;
+                    case "emergency":
+                        EmergencyFragment emergencyFragment = new EmergencyFragment();
+                        fragmentTransaction.replace(R.id.content_frame, emergencyFragment);
+                        fragmentTransaction.commit(); break;
                 }
 
             }
@@ -103,11 +122,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void initView(View view) {
-        crowdedMenuVw = view.findViewById(R.id.detect_menu_view);
-        addTripMenuVw = view.findViewById(R.id.add_trip_menu_view);
         stationNameTv = view.findViewById(R.id.station_name_tv);
         stationAddressTv = view.findViewById(R.id.station_address_tv);
         nearestDistanceTv = view.findViewById(R.id.nearest_distance_tv);
+        addTripBtn = view.findViewById(R.id.add_trip_onboarding_btn);
+        reportCrowdednessBtn = view.findViewById(R.id.crowdedness_onboarding_btn);
+        meditationBtn = view.findViewById(R.id.meditation_onboarding_btn);
+        newsBtn = view.findViewById(R.id.news_onboarding_btn);
+        emergencyBtn = view.findViewById(R.id.emergency_onboarding_btn);
     }
 
     private void getCurrentLocation() {

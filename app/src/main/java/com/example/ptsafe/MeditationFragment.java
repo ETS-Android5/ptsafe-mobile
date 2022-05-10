@@ -3,6 +3,7 @@ package com.example.ptsafe;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,8 +14,8 @@ import android.widget.LinearLayout;
 
 public class MeditationFragment extends Fragment {
 
-    private LinearLayout lightLl;
-    private LinearLayout boxLl;
+    private ConstraintLayout lightLl;
+    private ConstraintLayout boxLl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

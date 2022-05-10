@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/onboarding_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,29 +12,21 @@
     tools:layout_editor_absoluteY="0dp">
 
     <TextView
-        android:id="@+id/most_used_menu_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
+        android:id="@+id/nearest_station_home_tv2"
+        android:layout_width="268dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="240dp"
-        android:text="Most used menu"
-        android:textSize="20sp"
+        android:layout_marginEnd="123dp"
+        android:fontFamily="@font/roboto"
+        android:text="Discover PTSafe Experiences"
+        android:textColor="@color/black"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_nearest_station_vw" />
-
-    <View
-        android:id="@+id/add_trip_menu_view"
-        android:layout_width="165dp"
-        android:layout_height="138dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/news_menu_shape"
-        android:elevation="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/most_used_menu_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/detect_crowding_vw" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -47,74 +41,19 @@
         app:layout_constraintStart_toStartOf="@+id/first_nearest_station_vw"
         app:layout_constraintTop_toBottomOf="@+id/station_address_tv" />
 
-    <TextView
-        android:id="@+id/add_trip_menu_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="60dp"
-        android:elevation="3dp"
-        android:text="my trip"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/add_trip_menu_view"
-        app:layout_constraintStart_toStartOf="@+id/add_trip_menu_view"
-        app:layout_constraintTop_toTopOf="@+id/add_trip_menu_view" />
-
-    <View
-        android:id="@+id/detect_menu_view"
-        android:layout_width="165dp"
-        android:layout_height="138dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="18dp"
-        android:background="@drawable/crowding_menu_shape"
-        android:elevation="3dp"
-        app:layout_constraintEnd_toStartOf="@+id/add_trip_menu_view"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/most_used_menu_tv" />
-
-    <TextView
-        android:id="@+id/crowding_menu_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:clipChildren="false"
-        android:elevation="3dp"
-        android:text="@string/menu_detect_crowding"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/detect_menu_view"
-        app:layout_constraintStart_toStartOf="@+id/detect_menu_view"
-        app:layout_constraintTop_toTopOf="@+id/detect_menu_view" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="74dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="15dp"
-        android:clipChildren="false"
-        android:elevation="3dp"
-        android:src="@drawable/camera_icon_transparent"
-        app:layout_constraintEnd_toEndOf="@+id/detect_menu_view"
-        app:layout_constraintStart_toStartOf="@+id/detect_menu_view"
-        app:layout_constraintTop_toBottomOf="@+id/crowding_menu_tv" />
-
     <!--    android:elevation="3dp"-->
 
     <TextView
         android:id="@+id/nearest_station_home_tv"
-        android:layout_width="219dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="197dp"
+        android:layout_width="275dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="123dp"
         android:fontFamily="@font/roboto"
         android:text="Recommended station from my place"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,11 +66,11 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
+        android:background="@drawable/nearest_station_shape"
         android:bottomLeftRadius="20dp"
         android:bottomRightRadius="20dp"
         android:topLeftRadius="20dp"
         android:topRightRadius="20dp"
-        android:background="@drawable/nearest_station_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nearest_station_home_tv" />
@@ -189,18 +128,6 @@
         app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/station_address_tv" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="57dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="24dp"
-        android:clipChildren="false"
-        android:elevation="3dp"
-        android:src="@drawable/take_notes_icon"
-        app:layout_constraintEnd_toEndOf="@+id/add_trip_menu_view"
-        app:layout_constraintStart_toStartOf="@+id/add_trip_menu_view"
-        app:layout_constraintTop_toBottomOf="@+id/add_trip_menu_tv" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/onboarding_vw"
         android:layout_width="match_parent"
@@ -212,7 +139,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/trip_title"
             android:layout_width="323dp"
             android:layout_height="153dp"
             android:layout_marginTop="156dp"
@@ -227,7 +154,54 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/trip_btn"
+            android:id="@+id/add_trip_onboarding_btn"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="131dp"
+            android:backgroundTint="@color/white"
+            android:bottomLeftRadius="200dp"
+            android:bottomRightRadius="200dp"
+            android:fontFamily="@font/raleway_medium"
+            android:text="Add trip"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:topLeftRadius="200dp"
+            android:topRightRadius="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trip_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detect_crowding_vw"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/crowdness"
+        app:layout_constraintTop_toBottomOf="@+id/first_nearest_station_vw"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/onboarding_detection"
+            android:layout_width="319dp"
+            android:layout_height="134dp"
+            android:layout_marginTop="156dp"
+            android:fontFamily="@font/roboto"
+            android:text="Report crowdedness level for other users"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/crowdedness_onboarding_btn"
             android:layout_width="150dp"
             android:layout_height="55dp"
             android:layout_marginStart="130dp"
@@ -236,16 +210,173 @@
             android:backgroundTint="@color/white"
             android:bottomLeftRadius="200dp"
             android:bottomRightRadius="200dp"
-            android:topLeftRadius="200dp"
-            android:topRightRadius="200dp"
             android:fontFamily="@font/raleway_medium"
-            android:text="Add trip"
+            android:text="Report"
             android:textAllCaps="false"
             android:textColor="@color/black"
+            android:topLeftRadius="200dp"
+            android:topRightRadius="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.533"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/onboarding_detection" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/meditation_onboarding_vw"
+        android:layout_width="match_parent"
+        android:layout_height="333dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/meditation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nearest_station_home_tv2">
+
+        <TextView
+            android:id="@+id/maditation_onboarding_tv"
+            android:layout_width="265dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="Meditation when you are feeling anxious"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.177"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/meditation_onboarding_btn"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="237dp"
+            android:backgroundTint="@color/white"
+            android:bottomLeftRadius="200dp"
+            android:bottomRightRadius="200dp"
+            android:fontFamily="@font/raleway_medium"
+            android:text="Meditate"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:topLeftRadius="200dp"
+            android:topRightRadius="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.175"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/maditation_onboarding_tv" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/news_onboarding_vw"
+        android:layout_width="match_parent"
+        android:layout_height="333dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/people_reading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meditation_onboarding_vw">
+
+        <TextView
+            android:id="@+id/news_onboarding_tv"
+            android:layout_width="243dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="Read news while you are on board"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.177"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/news_onboarding_btn"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="237dp"
+            android:backgroundTint="@color/white"
+            android:bottomLeftRadius="200dp"
+            android:bottomRightRadius="200dp"
+            android:fontFamily="@font/raleway_medium"
+            android:text="Read news"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:topLeftRadius="200dp"
+            android:topRightRadius="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.175"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/news_onboarding_tv" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/emergency_onboarding_vw"
+        android:layout_width="match_parent"
+        android:layout_height="333dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/emergency_call"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/news_onboarding_vw">
+
+        <TextView
+            android:id="@+id/emergency_onboarding_tv"
+            android:layout_width="265dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="Call emergencies if you are getting offended"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.177"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/emergency_onboarding_btn"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="237dp"
+            android:backgroundTint="@color/white"
+            android:bottomLeftRadius="200dp"
+            android:bottomRightRadius="200dp"
+            android:fontFamily="@font/raleway_medium"
+            android:text="Call emergencies"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:topLeftRadius="200dp"
+            android:topRightRadius="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.179"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emergency_onboarding_tv" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
