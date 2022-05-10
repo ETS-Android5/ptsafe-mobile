@@ -10,6 +10,7 @@
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable-v24/white_bg.xml" value="0.1" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/add_trip_menu_shape.xml" value="0.1" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/button_shape.xml" value="0.1" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/button_white_shape.xml" value="0.1" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/comment_rv_shape.xml" value="0.10648148148148148" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/crowd_detection_view_shape.xml" value="0.1" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/crowding_detection_view_shape.xml" value="0.1" />
@@ -17,6 +18,7 @@
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/destination_name_background_shape.xml" value="0.1" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/dropdown_shape.xml" value="0.10648148148148148" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/emergency_menu_shape.xml" value="0.17291666666666666" />
+        <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/nearest_station_shape.xml" value="0.1" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/news_menu_shape.xml" value="0.17291666666666666" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/news_rv_shape.xml" value="0.1" />
         <entry key="..\:/IT/Monash/FIT5120/PTSafe/mobile/app/src/main/res/drawable/side_nav_bar.xml" value="0.11018518518518519" />
