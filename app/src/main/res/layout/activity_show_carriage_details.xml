@@ -80,7 +80,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="81dp"
-        android:text="No crime activities detected"
+        android:text="No unusual activities detected"
         app:layout_constraintEnd_toEndOf="@+id/carriage_detail_vw"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/carriage_detail_vw"

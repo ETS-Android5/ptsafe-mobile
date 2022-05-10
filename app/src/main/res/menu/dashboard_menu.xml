@@ -8,7 +8,7 @@
         android:title="@string/menu_detect_crowding"/>
     <item
         android:id="@+id/menu_find_a_station"
-        android:title="find a station"
+        android:title="my trips"
         />
     <item
         android:id="@+id/menu_emergency_call"

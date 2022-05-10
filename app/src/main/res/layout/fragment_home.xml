@@ -15,7 +15,7 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="240dp"
-        android:text="most used menu"
+        android:text="Most used menu"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,10 +27,24 @@
         android:layout_width="165dp"
         android:layout_height="138dp"
         android:layout_marginTop="50dp"
+        android:elevation="3dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/news_menu_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/most_used_menu_tv" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="19dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="18dp"
+        android:elevation="3dp"
+        android:src="@android:drawable/ic_menu_mylocation"
+        app:layout_constraintBottom_toBottomOf="@+id/first_nearest_station_vw"
+        app:layout_constraintStart_toStartOf="@+id/first_nearest_station_vw"
+        app:layout_constraintTop_toBottomOf="@+id/station_address_tv" />
 
     <TextView
         android:id="@+id/add_trip_menu_tv"
@@ -39,31 +53,18 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="60dp"
-        android:text="@string/find_a_station_label"
+        android:elevation="3dp"
+        android:text="my trip"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/add_trip_menu_view"
         app:layout_constraintStart_toStartOf="@+id/add_trip_menu_view"
         app:layout_constraintTop_toTopOf="@+id/add_trip_menu_view" />
 
-    <TextView
-        android:id="@+id/welcome_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="253dp"
-        android:text="@string/welcome_home"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <View
         android:id="@+id/detect_menu_view"
         android:layout_width="165dp"
         android:layout_height="138dp"
+        android:elevation="3dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="18dp"
@@ -81,32 +82,44 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:elevation="3dp"
+        android:clipChildren="false"
         android:text="@string/menu_detect_crowding"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/detect_menu_view"
         app:layout_constraintStart_toStartOf="@+id/detect_menu_view"
         app:layout_constraintTop_toTopOf="@+id/detect_menu_view" />
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="74dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="15dp"
+        android:elevation="3dp"
+        android:clipChildren="false"
+        android:src="@drawable/camera_icon_transparent"
+        app:layout_constraintEnd_toEndOf="@+id/detect_menu_view"
+        app:layout_constraintStart_toStartOf="@+id/detect_menu_view"
+        app:layout_constraintTop_toBottomOf="@+id/crowding_menu_tv" />
+
     <TextView
         android:id="@+id/nearest_station_home_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="38dp"
         android:layout_marginEnd="56dp"
-        android:text="less crowded station from my place"
+        android:text="Recommended station from my place"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_tv" />
+        tools:layout_editor_absoluteY="100dp" />
 
+<!--    android:elevation="3dp"-->
     <View
         android:id="@+id/first_nearest_station_vw"
         android:layout_width="0dp"
         android:layout_height="118dp"
         android:layout_marginStart="10dp"
-        android:elevation="3dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/news_rv_shape"
@@ -114,6 +127,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nearest_station_home_tv" />
 
+<!--    android:elevation="3dp"-->
     <TextView
         android:id="@+id/station_name_tv"
         android:layout_width="350dp"
@@ -122,13 +136,13 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="29dp"
         android:text="fetching the station"
-        android:elevation="3dp"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/first_nearest_station_vw"
         app:layout_constraintStart_toStartOf="@+id/first_nearest_station_vw"
         app:layout_constraintTop_toTopOf="@+id/first_nearest_station_vw" />
 
+<!--    android:elevation="3dp"-->
     <TextView
         android:id="@+id/station_address_tv"
         android:layout_width="350dp"
@@ -143,19 +157,9 @@
         app:layout_constraintStart_toStartOf="@+id/first_nearest_station_vw"
         app:layout_constraintTop_toBottomOf="@+id/station_name_tv" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="19dp"
-        android:layout_height="14dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="18dp"
-        android:elevation="3dp"
-        android:src="@android:drawable/ic_menu_mylocation"
-        app:layout_constraintBottom_toBottomOf="@+id/first_nearest_station_vw"
-        app:layout_constraintStart_toStartOf="@+id/first_nearest_station_vw"
-        app:layout_constraintTop_toBottomOf="@+id/station_address_tv" />
+<!--    android:elevation="3dp"-->
 
+<!--    android:elevation="3dp"-->
     <TextView
         android:id="@+id/nearest_distance_tv"
         android:layout_width="wrap_content"
@@ -171,21 +175,11 @@
         app:layout_constraintTop_toBottomOf="@+id/station_address_tv" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="74dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="15dp"
-        android:elevation="3dp"
-        android:src="@drawable/camera_icon_transparent"
-        app:layout_constraintEnd_toEndOf="@+id/detect_menu_view"
-        app:layout_constraintStart_toStartOf="@+id/detect_menu_view"
-        app:layout_constraintTop_toBottomOf="@+id/crowding_menu_tv" />
-
-    <ImageView
         android:id="@+id/imageView5"
         android:layout_width="57dp"
         android:layout_height="38dp"
         android:layout_marginTop="24dp"
+        android:clipChildren="false"
         android:elevation="3dp"
         android:src="@drawable/take_notes_icon"
         app:layout_constraintEnd_toEndOf="@+id/add_trip_menu_view"

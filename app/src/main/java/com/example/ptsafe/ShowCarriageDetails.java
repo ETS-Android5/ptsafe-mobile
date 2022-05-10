@@ -3,14 +3,20 @@ package com.example.ptsafe;
 import static com.example.ptsafe.AddNewsActivity.JSON;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ptsafe.model.Comment;
 import com.example.ptsafe.model.PostCrowdedness;
@@ -71,11 +77,30 @@ public class ShowCarriageDetails extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createTripWishlist(currentAddress, destinationAddress, stopId, routeId, departureTime, carriageNumber);
-                Intent intent = new Intent(ShowCarriageDetails.this, MainActivity.class);
-                startActivity(intent);
+                showAlertDialog(ShowCarriageDetails.this);
+//                createTripWishlist(currentAddress, destinationAddress, stopId, routeId, departureTime, carriageNumber);
             }
         };
+    }
+
+    private void showAlertDialog(Context context){
+        AlertDialog.Builder adBuilder = new AlertDialog.Builder(context)
+                .setTitle("Confirm creation")
+                .setMessage("Are you sure you want to create a trip plan?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        createTripWishlist(currentAddress, destinationAddress, stopId, routeId, departureTime, carriageNumber);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert);
+        AlertDialog ad = adBuilder.create();
+        ad.show();
+
+        Button noBtn = ad.getButton(DialogInterface.BUTTON_NEGATIVE);
+        noBtn.setTextColor(Color.BLACK);
+        Button yesBtn = ad.getButton(DialogInterface.BUTTON_POSITIVE);
+        yesBtn.setTextColor(Color.BLUE);
     }
 
     private void getDataFromIntent() {
@@ -206,9 +231,17 @@ public class ShowCarriageDetails extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Intent intent = new Intent(ShowCarriageDetails.this, MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("fromCarriageDetails", "yes");
+                intent.putExtras(bundle);
                 startActivity(intent);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ShowCarriageDetails.this, "Successfully add a trip wishlist!", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-            //todo: toast message
         });
     }
 }

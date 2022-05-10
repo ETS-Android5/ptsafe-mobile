@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Fragment homeFragment = new HomeFragment();
+        Fragment findStationFragment = new FindStationFragment();
         Intent fromLogin = getIntent();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -74,7 +75,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setHomeButtonEnabled(true);
         navigationView.setNavigationItemSelectedListener(this);
         //homeFragment.setArguments(bundle);
-        replaceFragment(homeFragment);
+        try {
+            Bundle extras = getIntent().getExtras();
+            String carriageDetailsIndicator = extras.getString("fromCarriageDetails");
+            if (carriageDetailsIndicator != null) {
+                replaceFragment(findStationFragment);
+            }
+        }
+        catch(Exception e) {
+            replaceFragment(homeFragment);
+        }
     }
 
     @Override

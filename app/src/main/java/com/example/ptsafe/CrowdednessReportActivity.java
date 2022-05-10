@@ -4,12 +4,15 @@ import static com.example.ptsafe.AddNewsActivity.JSON;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -156,13 +159,34 @@ public class CrowdednessReportActivity extends AppCompatActivity {
                     int carriageNumber = Integer.parseInt(carriageNumberEt.getText().toString());
 //                    int carriageNumber = Integer.parseInt(carriageNumberSpinner.getSelectedItem().toString());
                     String criminalActivity = criminalReportEt.getText().toString();
-                    createCrowdedness(Integer.parseInt(stopId), routeId, departureTime, destinationType, day , carriageNumber, crowdednessValue, criminalActivity);
+                    showAlertDialog(CrowdednessReportActivity.this, departureTime, day, carriageNumber, criminalActivity);
+//                    createCrowdedness(Integer.parseInt(stopId), routeId, departureTime, destinationType, day , carriageNumber, crowdednessValue, criminalActivity);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Please fill all the columns first!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void showAlertDialog(Context context, String departureTime, String day, int carriageNumber, String criminalActivity){
+        AlertDialog.Builder adBuilder = new AlertDialog.Builder(context)
+                .setTitle("Confirm creation")
+                .setMessage("Are you sure you want to report the crowdedness level?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        createCrowdedness(Integer.parseInt(stopId), routeId, departureTime, destinationType, day , carriageNumber, crowdednessValue, criminalActivity);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert);
+        AlertDialog ad = adBuilder.create();
+        ad.show();
+
+        Button noBtn = ad.getButton(DialogInterface.BUTTON_NEGATIVE);
+        noBtn.setTextColor(Color.BLACK);
+        Button yesBtn = ad.getButton(DialogInterface.BUTTON_POSITIVE);
+        yesBtn.setTextColor(Color.RED);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
