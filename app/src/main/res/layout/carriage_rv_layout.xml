@@ -7,62 +7,72 @@
     android:layout_marginBottom="5dp"
     android:orientation="horizontal"
     android:elevation="2dp"
-    android:background="@drawable/news_rv_shape">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/carriage_name_tv"
         android:layout_width="220dp"
         android:layout_height="27dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="178dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="148dp"
         android:elevation="2dp"
         android:text="This is for the carriage name"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/carriage_vw_outlier"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/crowdedness_level_percentage_tv"
         android:layout_width="224dp"
         android:layout_height="23dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
         android:elevation="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="54dp"
         app:layout_constraintEnd_toStartOf="@+id/view_carriage_details_btn"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/carriage_vw_outlier"
         app:layout_constraintTop_toBottomOf="@+id/crowdedness_name_tv" />
 
     <TextView
         android:id="@+id/crowdedness_name_tv"
         android:layout_width="218dp"
         android:layout_height="30dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="148dp"
         android:elevation="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="180dp"
         android:text="This is for the crowdedness level"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/carriage_vw_outlier"
         app:layout_constraintTop_toBottomOf="@+id/carriage_name_tv" />
 
     <Button
         android:id="@+id/view_carriage_details_btn"
         android:layout_width="98dp"
         android:layout_height="45dp"
-        android:elevation="2dp"
         android:layout_marginTop="89dp"
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="11dp"
         android:backgroundTint="#8BC34A"
+        android:elevation="2dp"
+        android:fontFamily="@font/roboto"
         android:text="View"
-        android:textColor="#236509"
+        android:textColor="@color/white"
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/carriage_vw_outlier"
+        android:layout_width="5dp"
+        android:layout_height="149dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

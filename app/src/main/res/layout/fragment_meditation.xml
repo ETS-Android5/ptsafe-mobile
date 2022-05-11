@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_primary"
     tools:context=".MainActivity">
 
 
@@ -85,7 +86,7 @@
 
         <TextView
             android:id="@+id/box_tv"
-            android:layout_width="83dp"
+            android:layout_width="90dp"
             android:layout_height="44dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"

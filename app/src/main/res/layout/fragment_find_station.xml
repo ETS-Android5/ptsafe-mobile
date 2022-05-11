@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_primary"
     tools:context=".FindStationFragment">
 
     <TextView
@@ -21,11 +22,13 @@
         android:id="@+id/saved_trips_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="285dp"
+        android:fontFamily="@font/roboto"
         android:text="@string/saved_trip_label"
-        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +53,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="10dp"
             android:backgroundTint="@color/blue_primary"
+            android:fontFamily="@font/roboto"
             android:text="@string/add_trip_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

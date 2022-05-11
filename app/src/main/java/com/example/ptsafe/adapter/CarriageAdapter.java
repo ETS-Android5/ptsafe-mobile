@@ -25,6 +25,7 @@ public class CarriageAdapter extends RecyclerView.Adapter<CarriageAdapter.ViewHo
         private TextView crowdednessNameTv;
         private TextView crowdednessPercentageTv;
         private Button viewCarriageBtn;
+        private View carriageVwOutlier;
 
         //Train view holder constructors
         public ViewHolder(View itemView, ClickListener listener) {
@@ -33,7 +34,7 @@ public class CarriageAdapter extends RecyclerView.Adapter<CarriageAdapter.ViewHo
             crowdednessNameTv = itemView.findViewById(R.id.crowdedness_name_tv);
             crowdednessPercentageTv = itemView.findViewById(R.id.crowdedness_level_percentage_tv);
             viewCarriageBtn = itemView.findViewById(R.id.view_carriage_details_btn);
-
+            carriageVwOutlier = itemView.findViewById(R.id.carriage_vw_outlier);
             viewCarriageBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -83,29 +84,34 @@ public class CarriageAdapter extends RecyclerView.Adapter<CarriageAdapter.ViewHo
         TextView carriageNameTv = viewHolder.carriageNameTv;
         TextView crowdednessNameTv =viewHolder.crowdednessNameTv;
         TextView crowdednessLevelPercentageTv = viewHolder.crowdednessPercentageTv;
+        View carriageOutlier = viewHolder.carriageVwOutlier;
         carriageNameTv.setText("carriage " + item.getCarriageNumber());
-        getCrowdednessIndicator(item, crowdednessNameTv, crowdednessLevelPercentageTv);
+        getCrowdednessIndicator(item, crowdednessNameTv, crowdednessLevelPercentageTv, carriageOutlier);
 
     }
 
-    private void getCrowdednessIndicator(Carriage item, TextView crowdedNessNameTv, TextView crowdednessLevelPercentageTv) {
+    private void getCrowdednessIndicator(Carriage item, TextView crowdedNessNameTv, TextView crowdednessLevelPercentageTv, View carriageOutlier) {
         if (item.getAverageCrowdednessLevel() > 0.8) {
             crowdedNessNameTv.setText("crowdedness level high");
             crowdedNessNameTv.setTextColor(Color.RED);
+            carriageOutlier.setBackgroundColor(Color.RED);
             crowdednessLevelPercentageTv.setText("crowdedness level: " + item.getAverageCrowdednessLevel());
         }
         else if (item.getAverageCrowdednessLevel() > 0.5) {
             crowdedNessNameTv.setText("crowdedness level medium");
             crowdedNessNameTv.setTextColor(Color.CYAN);
+            carriageOutlier.setBackgroundColor(Color.CYAN);
             crowdednessLevelPercentageTv.setText("crowdedness level: " + item.getAverageCrowdednessLevel());
         }
         else if (item.getAverageCrowdednessLevel() == -1) {
             crowdedNessNameTv.setText("No crowdedness level detected");
+            carriageOutlier.setBackgroundColor(Color.GRAY);
             crowdedNessNameTv.setTextColor(Color.GRAY);
         }
         else {
             crowdedNessNameTv.setText("crowdedness level low");
             crowdedNessNameTv.setTextColor(Color.GREEN);
+            carriageOutlier.setBackgroundColor(Color.GREEN);
             crowdednessLevelPercentageTv.setText("crowdedness level: " + item.getAverageCrowdednessLevel());
         }
     }

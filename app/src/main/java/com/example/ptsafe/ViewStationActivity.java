@@ -17,7 +17,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,6 +42,7 @@ import com.example.ptsafe.databinding.ActivityViewStationBinding;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,6 +65,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
     private GoogleMap mMap;
     private EditText destSearchEt;
     private Spinner inOutSpinner;
+    private Button button;
     private ActivityViewStationBinding binding;
     Location currentLocation;
     private LatLng currLocation;
@@ -125,6 +130,21 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                     }
                 }
                 return false;
+            }
+        });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                        ViewStationActivity.this, R.style.BottomSheetDialogTheme
+                );
+                View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                        .inflate(
+                                R.layout.bottom_sheet_find_station,
+                                findViewById(R.id.bottom_container)
+                        );
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
             }
         });
     }
@@ -344,6 +364,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
     private void initView() {
         destSearchEt = findViewById(R.id.destination_search_et);
         inOutSpinner = findViewById(R.id.in_out_spinner);
+        button = findViewById(R.id.info_btn);
     }
 
     private void initVar() {

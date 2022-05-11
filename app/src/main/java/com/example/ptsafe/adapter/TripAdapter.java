@@ -96,10 +96,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder>  {
         TextView carriageNumberTv = viewHolder.carriageNumberTv;
         sourceNameTv.setText(item.getSourceName());
         destinationNameTv.setText(item.getDestinationName());
-        stopNameTv.setText(Html.fromHtml("<b>" + "station: " + "</b> " + item.getStopName()));
-        routeNameTv.setText(Html.fromHtml("<b>" + "train: " + "</b> " + item.getRouteLongName()));
-        departureTimeTv.setText(Html.fromHtml("<b>" + "departure time: " + "</b> " + item.getDepartureTime()));
-        carriageNumberTv.setText(Html.fromHtml("<b>" + "carriage number: " + "</b> " + String.valueOf(item.getCarriageNumber())));
+        stopNameTv.setText(Html.fromHtml("<b>" + "Station: " + "</b> " + item.getStopName()));
+        routeNameTv.setText(Html.fromHtml("<b>" + "Train: " + "</b> " + item.getRouteLongName()));
+        departureTimeTv.setText(Html.fromHtml("<b>" + "Departure time: " + "</b> " + item.getDepartureTime()));
+        carriageNumberTv.setText(Html.fromHtml("<b>" + "Carriage number: " + "</b> " + String.valueOf(item.getCarriageNumber())));
 
     }
 }
