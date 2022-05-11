@@ -37,8 +37,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -222,7 +227,20 @@ public class HomeFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-                nearestStop = nearestStopsData.get(0);
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Australia/Sydney"));
+                Date currentLocalTime = cal.getTime();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+                Log.d("currentDate", dateFormat.format(currentLocalTime));
+                try {
+                    if(dateFormat.parse(dateFormat.format(currentLocalTime)).after(dateFormat.parse("18:00:00")) || dateFormat.parse(dateFormat.format(currentLocalTime)).before(dateFormat.parse("07:00:00")))
+                    {
+                        nearestStop = nearestStopsData.get(1);
+                    }else{
+                        nearestStop = nearestStopsData.get(0);
+                    }
+                } catch (ParseException e) {
+                    nearestStop = nearestStopsData.get(0);
+                }
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

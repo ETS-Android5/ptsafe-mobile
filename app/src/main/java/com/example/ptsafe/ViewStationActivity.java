@@ -49,10 +49,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -269,13 +274,13 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
         return p1;
     }
 
-    private void addStationsMarkerToHashMap (List<NearestStops> stopsData) {
+    private void includeMarkers(List<NearestStops> stopsData, int selectedIndex) {
         int index = 0;
         for (NearestStops stop: stopsData) {
             LatLng coordinate = new LatLng(stop.getStopLat(), stop.getStopLong());
             BitmapDescriptor markerColor = BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
-            if (index != 0) {
+            if (index != selectedIndex) {
                 markerColor = BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
             }
@@ -285,6 +290,22 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                     .icon(markerColor));
             stationMarkers.put(marker.getId(), stop.getStopId());
             index++;
+        }
+    }
+
+    private void addStationsMarkerToHashMap (List<NearestStops> stopsData) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Australia/Sydney"));
+        Date currentLocalTime = cal.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss") ;
+        try {
+            if(dateFormat.parse(dateFormat.format(currentLocalTime)).after(dateFormat.parse("18:00:00")) || dateFormat.parse(dateFormat.format(currentLocalTime)).before(dateFormat.parse("07:00:00"))) {
+               includeMarkers(stopsData, 1);
+            }
+            else {
+                includeMarkers(stopsData, 0);
+            }
+        } catch (ParseException e) {
+            includeMarkers(stopsData, 0);
         }
     }
 

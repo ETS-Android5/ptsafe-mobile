@@ -21,9 +21,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -94,6 +98,45 @@ public class ListCarriageActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
     }
 
+    private void getSortedCarriages(JSONArray data) {
+        for(int i = 0; i < data.length(); i++) {
+            JSONObject obj = null;
+            try {
+                obj = data.getJSONObject(i);
+                int newsId = obj.getInt("carriage_number");
+                double averageCrowdnessLevel = obj.getDouble("average_crowdness_level");
+                Carriage newCarriage = new Carriage(newsId, averageCrowdnessLevel);
+                carriageItems.add(newCarriage);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void getMediumSortedCarriages(JSONArray data) {
+        List<Carriage> mediumCarriages = new ArrayList<>();
+        List<Carriage> otherCarriages = new ArrayList<>();
+        for(int i = 0; i < data.length(); i++) {
+            JSONObject obj = null;
+            try {
+                obj = data.getJSONObject(i);
+                int newsId = obj.getInt("carriage_number");
+                double averageCrowdnessLevel = obj.getDouble("average_crowdness_level");
+                Carriage newCarriage = new Carriage(newsId, averageCrowdnessLevel);
+                if (averageCrowdnessLevel > 0.5 && averageCrowdnessLevel <= 0.8) {
+                    mediumCarriages.add(newCarriage);
+                }
+                else {
+                    otherCarriages.add(newCarriage);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        carriageItems.addAll(mediumCarriages);
+        carriageItems.addAll(otherCarriages);
+    }
+
     private void initVars() {
         carriageItems = new ArrayList<>();
     }
@@ -111,6 +154,9 @@ public class ListCarriageActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Australia/Sydney"));
+                Date currentLocalTime = cal.getTime();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss") ;
                 JSONObject resultObj = null;
                 List<Carriage> carriageData = new ArrayList<>();
                 try {
@@ -124,17 +170,15 @@ public class ListCarriageActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for(int i = 0; i < data.length(); i++) {
-                    JSONObject obj = null;
-                    try {
-                        obj = data.getJSONObject(i);
-                        int newsId = obj.getInt("carriage_number");
-                        double averageCrowdnessLevel = obj.getDouble("average_crowdness_level");
-                        Carriage newCarriage = new Carriage(newsId, averageCrowdnessLevel);
-                        carriageItems.add(newCarriage);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                try {
+                    if(dateFormat.parse(dateFormat.format(currentLocalTime)).after(dateFormat.parse("18:00:00")) || dateFormat.parse(dateFormat.format(currentLocalTime)).before(dateFormat.parse("07:00:00")))
+                    {
+                        getMediumSortedCarriages(data);
+                    }else{
+                        getSortedCarriages(data);
                     }
+                } catch (ParseException e) {
+                    getSortedCarriages(data);
                 }
                 runOnUiThread(new Runnable() {
                     @Override
