@@ -32,8 +32,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import okhttp3.Call;
@@ -98,8 +103,7 @@ public class ListTrainActivity extends AppCompatActivity {
             }
         });
     }
-//newsRv.setAdapter(adapter);
-//                adapter.notifyDataSetChanged();
+
     private void initView () {
         crimeNewsRv = findViewById(R.id.location_news_rv);
         availableTrainsRv = findViewById(R.id.available_trains_rv);
@@ -168,6 +172,9 @@ public class ListTrainActivity extends AppCompatActivity {
     }
 
     public void getAllTrainsByStopDirectionAndCoordinates(int stopId, int directionType, double latitude, double longitude){
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Australia/Sydney"));
+        Date currentLocalTime = cal.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         OkHttpClient client = new OkHttpClient();
         String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/report/findRoutesByStopIdDirectionCurrLocation?stopid=" + stopId + "&directiontype=" + directionType + "&lat=" + latitude + "&long=" + longitude;
         Request request = new Request.Builder().url(url).build();
@@ -177,6 +184,7 @@ public class ListTrainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            @SuppressLint("NewApi")
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 JSONObject resultObj = null;
@@ -201,11 +209,15 @@ public class ListTrainActivity extends AppCompatActivity {
                         String tripHeadSign = obj.getString("trip_headsign");
                         String departureTime = obj.getString("departure_time");
                         Train newTrain = new Train(routeId, routeLongName, tripHeadSign, departureTime);
-                        trainsData.add(newTrain);
-                    } catch (JSONException e) {
+                        if (dateFormat.parse(newTrain.getDepartureTime()).after(dateFormat.parse(dateFormat.format(currentLocalTime)))) {
+                            trainsData.add(newTrain);
+                        }
+                    } catch (JSONException | ParseException e) {
                         e.printStackTrace();
                     }
                 }
+                //sort by times
+//                dateFormat.parse(dateFormat.format(currentLocalTime)).after(dateFormat.parse("18:00:00"))
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

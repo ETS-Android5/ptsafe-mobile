@@ -193,7 +193,6 @@ public class ListCarriageActivity extends AppCompatActivity {
                     }
                 });
             }
-
         });
     }
 

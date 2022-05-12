@@ -7,14 +7,15 @@
     android:layout_marginBottom="5dp"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="@drawable/news_rv_shape">
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/news_image"
         android:layout_width="81dp"
         android:layout_height="102dp"
-        android:elevation="2dp"
+        android:layout_marginStart="5dp"
         android:layout_marginBottom="13dp"
+        android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,6 +28,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:elevation="2dp"
+        android:fontFamily="@font/roboto"
         android:maxLines="2"
         android:singleLine="false"
         android:text="News title"
@@ -42,8 +44,9 @@
         android:id="@+id/news_short_content"
         android:layout_width="248dp"
         android:layout_height="42dp"
-        android:elevation="2dp"
         android:layout_marginTop="13dp"
+        android:elevation="2dp"
+        android:fontFamily="@font/roboto"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
         android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
