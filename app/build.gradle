@@ -33,6 +33,7 @@ android {
 dependencies {
     //butterknife injection
     implementation 'com.jakewharton:butterknife:10.1.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     implementation 'com.google.android.gms:play-services-location:17.0.0'

@@ -7,15 +7,20 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.ptsafe.adapter.NewsAdapter;
 import com.example.ptsafe.adapter.NewsTitleAdapter;
 import com.example.ptsafe.adapter.TrainAdapter;
 import com.example.ptsafe.model.NewsStop;
@@ -27,8 +32,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import okhttp3.Call;
@@ -45,11 +55,13 @@ public class ListTrainActivity extends AppCompatActivity {
     private RecyclerView availableTrainsRv;
     private TextView errorMessageTv;
     private Button showHistoricalDataBtn;
+    private Spinner trainSpinner;
     private TrainAdapter trainAdapter;
     private NewsTitleAdapter newsTitleAdapter;
     private RecyclerView.LayoutManager trainLayoutManager;
     private RecyclerView.LayoutManager newsLayoutManager;
     private List<Train> trainsData;
+    private List<String> distinctTrainNames;
     private List<NewsStop> newsStopData;
     private List<NewsStop> nearestNewsStopData;
     private int stopId;
@@ -67,6 +79,29 @@ public class ListTrainActivity extends AppCompatActivity {
         getAllCrimeNews();
         getAllTrainsData();
         showHistoricalDataBtn.setOnClickListener(showChart());
+        trainSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String trainLabel = adapterView.getItemAtPosition(i).toString();
+                if (trainLabel.equals("all")) {
+                    setOnClickListener(trainsData);
+                    trainAdapter = new TrainAdapter(trainsData, listener);
+                }
+                else {
+                    List<Train> filteredTrains = trainsData.stream().filter(item -> item.getRouteLongName().equals(trainLabel)).collect(Collectors.toList());
+                    setOnClickListener(filteredTrains);
+                    trainAdapter = new TrainAdapter(filteredTrains, listener);
+                }
+                availableTrainsRv.setAdapter(trainAdapter);
+                trainAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void initView () {
@@ -76,6 +111,7 @@ public class ListTrainActivity extends AppCompatActivity {
         newsLayoutManager = new LinearLayoutManager(this);;
         showHistoricalDataBtn = findViewById(R.id.show_weekday_btn);
         errorMessageTv = findViewById(R.id.error_message_crime_tv);
+        trainSpinner = findViewById(R.id.train_spinner);
     }
 
     private void setOnClickListener(final List<Train> trainsData) {
@@ -130,10 +166,15 @@ public class ListTrainActivity extends AppCompatActivity {
         longitude = bundle.getDouble("longitude");
         currentAddress = bundle.getString("currentAddress");
         destinationAddress = bundle.getString("destinationAddress");
+        getAllDistinctTrains(stopId, destinationType, latitude, longitude);
         getAllTrainsByStopDirectionAndCoordinates(stopId, destinationType, latitude, longitude);
+
     }
 
     public void getAllTrainsByStopDirectionAndCoordinates(int stopId, int directionType, double latitude, double longitude){
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Australia/Sydney"));
+        Date currentLocalTime = cal.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         OkHttpClient client = new OkHttpClient();
         String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/report/findRoutesByStopIdDirectionCurrLocation?stopid=" + stopId + "&directiontype=" + directionType + "&lat=" + latitude + "&long=" + longitude;
         Request request = new Request.Builder().url(url).build();
@@ -143,6 +184,7 @@ public class ListTrainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            @SuppressLint("NewApi")
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 JSONObject resultObj = null;
@@ -167,11 +209,15 @@ public class ListTrainActivity extends AppCompatActivity {
                         String tripHeadSign = obj.getString("trip_headsign");
                         String departureTime = obj.getString("departure_time");
                         Train newTrain = new Train(routeId, routeLongName, tripHeadSign, departureTime);
-                        trainsData.add(newTrain);
-                    } catch (JSONException e) {
+                        if (dateFormat.parse(newTrain.getDepartureTime()).after(dateFormat.parse(dateFormat.format(currentLocalTime)))) {
+                            trainsData.add(newTrain);
+                        }
+                    } catch (JSONException | ParseException e) {
                         e.printStackTrace();
                     }
                 }
+                //sort by times
+//                dateFormat.parse(dateFormat.format(currentLocalTime)).after(dateFormat.parse("18:00:00"))
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -182,6 +228,54 @@ public class ListTrainActivity extends AppCompatActivity {
                         removeDivider(availableTrainsRv);
                         availableTrainsRv.setAdapter(trainAdapter);
                         availableTrainsRv.setLayoutManager(trainLayoutManager);
+                    }
+                });
+            }
+        });
+    }
+
+    public void getAllDistinctTrains(int stopId, int directionType, double latitude, double longitude){
+        distinctTrainNames.add("all");
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/report/findDistinctRoutes?stopid=" + stopId + "&directiontype=" + directionType + "&lat=" + latitude + "&long=" + longitude;
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                JSONObject resultObj = null;
+                try {
+                    resultObj = new JSONObject(response.body().string());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONArray data = null;
+                try {
+                    data = resultObj.getJSONArray("message");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                for(int i = 0; i < data.length(); i++) {
+                    JSONObject obj = null;
+                    try {
+                        obj = data.getJSONObject(i);
+                        String routeLongName = obj.getString("route_long_name");
+                        distinctTrainNames.add(routeLongName);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, distinctTrainNames);
+                        spinnerArrayAdapter.setDropDownViewResource(android.R.layout
+                                .simple_spinner_dropdown_item);
+                        trainSpinner.setAdapter(spinnerArrayAdapter);
                     }
                 });
             }
@@ -324,6 +418,7 @@ public class ListTrainActivity extends AppCompatActivity {
 
     private void initData() {
         trainsData = new ArrayList<>();
+        distinctTrainNames = new ArrayList<>();
         newsStopData = new ArrayList<>();
         nearestNewsStopData = new ArrayList<>();
     }
