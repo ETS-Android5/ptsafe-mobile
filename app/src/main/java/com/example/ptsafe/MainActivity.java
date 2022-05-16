@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_meditation:
                 replaceFragment(new MeditationFragment());
                 break;
+            case R.id.user_manual:
+                Intent intent = new Intent(MainActivity.this, FirstScreen.class);
+                startActivity(intent);
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

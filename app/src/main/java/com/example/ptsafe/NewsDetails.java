@@ -67,9 +67,12 @@ public class NewsDetails extends AppCompatActivity {
                         new Intent("android.intent.action.VIEW",
                                 Uri.parse(getNewsUrl()));
                 startActivity(viewIntent);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         };
     }
+
     private View.OnClickListener setAddCommentsBtnListener() {
         return new View.OnClickListener() {
             @Override
@@ -85,6 +88,8 @@ public class NewsDetails extends AppCompatActivity {
                 bundle.putString("newsUrl", data.getString("newsUrl"));
                 intent.putExtras(bundle);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         };
     }

@@ -8,12 +8,13 @@ public class NearestStops {
     private float stopLong;
     private float crowdednessDensity;
     private int totalPoliceStations;
+    private float crimeRateIndex;
     private float distanceInKm;
 
     public NearestStops() {
     }
 
-    public NearestStops(int stopId, String stopName, float stopLat, float stopLong, float crowdednessDensity, int totalPoliceStations, float distanceInKm) {
+    public NearestStops(int stopId, String stopName, float stopLat, float stopLong, float crowdednessDensity, int totalPoliceStations, float crimeRateIndex, float distanceInKm) {
         this.stopId = stopId;
         this.stopName = stopName;
         this.stopLat = stopLat;
@@ -21,6 +22,7 @@ public class NearestStops {
         this.crowdednessDensity = crowdednessDensity;
         this.totalPoliceStations = totalPoliceStations;
         this.distanceInKm = distanceInKm;
+        this.crimeRateIndex = crimeRateIndex;
     }
 
     public int getStopId() {
@@ -77,5 +79,13 @@ public class NearestStops {
 
     public void setDistanceInKm(float distanceInKm) {
         this.distanceInKm = distanceInKm;
+    }
+
+    public float getCrimeRateIndex() {
+        return crimeRateIndex;
+    }
+
+    public void setCrimeRateIndex(float crimeRateIndex) {
+        this.crimeRateIndex = crimeRateIndex;
     }
 }
