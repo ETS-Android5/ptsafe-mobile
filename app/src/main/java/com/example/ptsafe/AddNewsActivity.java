@@ -55,6 +55,14 @@ public class AddNewsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
+    }
+
+
     private void initView() {
         newsTitleEt = findViewById(R.id.news_title_et);
         newsLabelSpinner = findViewById(R.id.news_submit_spinner);

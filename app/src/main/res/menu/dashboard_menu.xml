@@ -20,4 +20,8 @@
         android:id="@+id/menu_meditation"
         android:title="meditation"
         />
+    <item
+        android:id="@+id/user_manual"
+        android:title="user manual"
+        />
 </menu>

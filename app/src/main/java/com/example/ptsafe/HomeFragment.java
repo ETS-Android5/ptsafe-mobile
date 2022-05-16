@@ -116,6 +116,9 @@ public class HomeFragment extends Fragment {
                         EmergencyFragment emergencyFragment = new EmergencyFragment();
                         fragmentTransaction.replace(R.id.content_frame, emergencyFragment);
                         fragmentTransaction.commit(); break;
+                    case "user manual":
+                        Intent intent = new Intent(getActivity(), FirstScreen.class);
+                        startActivity(intent); break;
                 }
 
             }
@@ -220,8 +223,9 @@ public class HomeFragment extends Fragment {
                         float stopLong = (float) obj.getDouble("stop_lon");
                         float crowdednessDensity = (float) obj.getDouble("crowdedness_density");
                         int totalPoliceStation = obj.getInt("total_police_station");
+                        float crimeRateIndex = (float) obj.getDouble("crime_rate_index");
                         float distanceInKm = (float) obj.getDouble("distance_in_km");
-                        NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, crowdednessDensity, totalPoliceStation, distanceInKm);
+                        NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, crowdednessDensity, totalPoliceStation, crimeRateIndex, distanceInKm);
                         nearestStopsData.add(newStop);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -230,7 +234,11 @@ public class HomeFragment extends Fragment {
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Australia/Sydney"));
                 Date currentLocalTime = cal.getTime();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-                Log.d("currentDate", dateFormat.format(currentLocalTime));
+                try {
+                    Log.d("currentDate", String.valueOf(dateFormat.parse(dateFormat.format(currentLocalTime)).after(dateFormat.parse("18:00:00"))));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 try {
                     if(dateFormat.parse(dateFormat.format(currentLocalTime)).after(dateFormat.parse("18:00:00")) || dateFormat.parse(dateFormat.format(currentLocalTime)).before(dateFormat.parse("07:00:00")))
                     {

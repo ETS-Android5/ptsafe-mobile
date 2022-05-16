@@ -65,6 +65,14 @@ public class AddCommentsActivity extends AppCompatActivity {
         addCommentsBtn = findViewById(R.id.add_comments_two_btn);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
+    }
+
+
     //todo: implement a function to get intent from another page
     private void getIntentData() {
         Intent intent = getIntent();

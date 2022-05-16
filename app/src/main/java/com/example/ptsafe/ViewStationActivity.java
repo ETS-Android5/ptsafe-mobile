@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,7 +71,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
     private GoogleMap mMap;
     private EditText destSearchEt;
     private Spinner inOutSpinner;
-    private Button button;
+    private ImageView infoIv;
     private ActivityViewStationBinding binding;
     Location currentLocation;
     private LatLng currLocation;
@@ -137,7 +138,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                 return false;
             }
         });
-        button.setOnClickListener(new View.OnClickListener() {
+        infoIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
@@ -190,6 +191,8 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
         bundle.putString("destinationAddress", destSearchEt.getText().toString());
         intent.putExtras(bundle);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
     }
 
     private void getCurrentLocation() {
@@ -286,7 +289,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
             }
             Marker marker = mMap.addMarker(new MarkerOptions().
                     position(coordinate).title(stop.getStopName())
-                    .snippet("Crowdedness per platform: " + stop.getCrowdednessDensity() + ", Police stations: " + stop.getTotalPoliceStations())
+                    .snippet("Crowdedness: " + stop.getCrowdednessDensity() + ", Police stations: " + stop.getTotalPoliceStations() + ", CRI: " + stop.getCrimeRateIndex())
                     .icon(markerColor));
             stationMarkers.put(marker.getId(), stop.getStopId());
             index++;
@@ -346,8 +349,9 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                         float stopLong = (float) obj.getDouble("stop_lon");
                         float crowdednessDensity = (float) obj.getDouble("crowdedness_density");
                         int totalPoliceStation = obj.getInt("total_police_station");
+                        float crimeRateIndex = (float) obj.getDouble("crime_rate_index");
                         float distanceInKm = (float) obj.getDouble("distance_in_km");
-                        NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, crowdednessDensity, totalPoliceStation, distanceInKm);
+                        NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, crowdednessDensity, totalPoliceStation, crimeRateIndex, distanceInKm);
                         nearestStops.add(newStop);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -385,7 +389,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
     private void initView() {
         destSearchEt = findViewById(R.id.destination_search_et);
         inOutSpinner = findViewById(R.id.in_out_spinner);
-        button = findViewById(R.id.info_btn);
+        infoIv = findViewById(R.id.info_iv);
     }
 
     private void initVar() {

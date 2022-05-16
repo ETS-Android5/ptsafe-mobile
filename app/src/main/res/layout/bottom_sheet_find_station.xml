@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="38dp"
-            android:text="Crime rate index indicates how likely the crimes will happen per 100000 people, scaled between 0 - 1. Closer to one means that the station is less safer"
+            android:text="Crime rate index (CRI) indicates how likely the crimes will happen per 100000 people, scaled between 0 - 1. Closer to one means that the station is less safer"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/police_station_info_tv" />
