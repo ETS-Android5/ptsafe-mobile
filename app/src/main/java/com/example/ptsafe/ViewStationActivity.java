@@ -352,7 +352,10 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                         float crimeRateIndex = (float) obj.getDouble("crime_rate_index");
                         float distanceInKm = (float) obj.getDouble("distance_in_km");
                         NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, crowdednessDensity, totalPoliceStation, crimeRateIndex, distanceInKm);
-                        nearestStops.add(newStop);
+                        //todo: ban several stops that are not covered in the scenario
+                        if (newStop.getStopId() != 19942) {
+                            nearestStops.add(newStop);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

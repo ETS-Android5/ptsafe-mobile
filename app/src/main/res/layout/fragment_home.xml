@@ -179,11 +179,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/detect_crowding_vw"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="400dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/crowdness"
-        app:layout_constraintTop_toBottomOf="@+id/first_nearest_station_vw"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_nearest_station_vw">
 
         <TextView
             android:id="@+id/onboarding_detection"

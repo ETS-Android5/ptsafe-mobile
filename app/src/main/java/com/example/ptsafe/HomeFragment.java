@@ -76,7 +76,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the View for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        getActivity().setTitle("Home");
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
         initVars();
         initView(view);
@@ -88,6 +87,7 @@ public class HomeFragment extends Fragment {
         emergencyBtn.setOnClickListener(setMenuBtn("emergency"));
         return view;
     }
+
 
     private View.OnClickListener setMenuBtn(String menu) {
         return new View.OnClickListener() {
@@ -153,6 +153,9 @@ public class HomeFragment extends Fragment {
             public void onSuccess(Location location) {
                 if (location != null) {
                     currentLocation = location;
+                    //todo: remove this debug log when the expo ends
+                    Log.i("latitude", String.valueOf(location.getLatitude()));
+                    Log.i("longitude", String.valueOf(location.getLongitude()));
                     getAllNearestStopsToCurrentLocation(currentLocation);
                 }
             }

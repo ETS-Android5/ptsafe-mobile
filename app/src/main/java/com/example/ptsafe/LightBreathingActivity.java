@@ -3,6 +3,7 @@ package com.example.ptsafe;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -118,6 +119,11 @@ public class LightBreathingActivity extends AppCompatActivity {
         relaxMediaPlayer.stop();
         inMediaPlayer.stop();
         outMediaPlayer.stop();
+        Intent intent = new Intent(LightBreathingActivity.this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("fromLightBreathing","Y");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 

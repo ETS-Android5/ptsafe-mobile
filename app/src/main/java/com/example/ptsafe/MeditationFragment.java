@@ -21,7 +21,6 @@ public class MeditationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_meditation, container, false);
-        getActivity().setTitle("Meditation");
         initView(view);
         lightLl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +38,7 @@ public class MeditationFragment extends Fragment {
         });
         return view;
     }
+
 
     private void initView(View view){
         lightLl = view.findViewById(R.id.ll_llight);

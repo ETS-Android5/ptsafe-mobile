@@ -62,7 +62,6 @@ public class EmergencyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the View for this fragment
         View view = inflater.inflate(R.layout.fragment_emergency, container, false);
-        getActivity().setTitle("Emergency call");
         initView(view);
         getAllEmergency();
         return view;

@@ -59,6 +59,18 @@ public class NewsDetails extends AppCompatActivity {
         addCommentsBtn.setOnClickListener(setAddCommentsBtnListener());
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(NewsDetails.this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("fromNewsDetails","Y");
+        intent.putExtras(bundle);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
+    }
+
     private View.OnClickListener setReadNewsBtnListener() {
         return new View.OnClickListener() {
             @Override

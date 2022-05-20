@@ -57,7 +57,6 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the View for this fragment
         View view = inflater.inflate(R.layout.fragment_news, container, false);
-        getActivity().setTitle("News");
         initView(view);
         getAllNews();
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

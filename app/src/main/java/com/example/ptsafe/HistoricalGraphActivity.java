@@ -110,6 +110,15 @@ public class HistoricalGraphActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(HistoricalGraphActivity.this, ListTrainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
+    }
+
     private void initView() {
         barChart = findViewById(R.id.historical_barchart_bc);
         yearSpinner = findViewById(R.id.year_spinner);

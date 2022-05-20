@@ -207,6 +207,21 @@ public class ShowCarriageDetails extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(ShowCarriageDetails.this, ListCarriageActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("day", day);
+        bundle.putString("routeId", routeId);
+        bundle.putInt("stopId", stopId);
+        bundle.putString("departureTime", departureTime);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
+    }
+
     private void createTripWishlist(String sourceName, String destinationName, int stopId, String routeId, String departureTime, int carriageNumber) {
         OkHttpClient client = new OkHttpClient();
         String url = "http://ptsafenodejsapi-env.eba-cx9pgkwu.us-east-1.elasticbeanstalk.com/v1/report/createTripWishlist";

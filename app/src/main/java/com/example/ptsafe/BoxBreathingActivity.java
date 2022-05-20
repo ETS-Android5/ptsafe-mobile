@@ -3,6 +3,7 @@ package com.example.ptsafe;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -119,6 +120,11 @@ public class BoxBreathingActivity extends AppCompatActivity {
         }
         focusMediaPlayer.stop();
         relaxMediaPlayer.stop();
+        Intent intent = new Intent(BoxBreathingActivity.this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("fromBoxBreathing","Y");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private int current = 1;

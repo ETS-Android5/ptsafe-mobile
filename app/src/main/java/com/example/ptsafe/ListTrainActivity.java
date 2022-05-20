@@ -135,6 +135,8 @@ public class ListTrainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent = new Intent(ListTrainActivity.this, ViewStationActivity.class);
+        startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
     }
@@ -148,6 +150,8 @@ public class ListTrainActivity extends AppCompatActivity {
                 bundle.putInt("stopId", stopId);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         };
     }
@@ -201,7 +205,12 @@ public class ListTrainActivity extends AppCompatActivity {
                 try {
                     resultObj = new JSONObject(response.body().string());
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
                 }
                 JSONArray data = null;
                 try {

@@ -68,6 +68,15 @@ public class AddCommentsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent = new Intent(AddCommentsActivity.this, NewsDetails.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("newsId", newsId);
+        bundle.putString("imageUrl", imageUrl);
+        bundle.putString("newsTitle", newsTitle);
+        bundle.putString("newsContent", newsContent);
+        bundle.putString("newsUrl", newsUrl);
+        intent.putExtras(bundle);
+        startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
     }

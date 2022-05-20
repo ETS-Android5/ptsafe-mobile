@@ -19,6 +19,17 @@
         app:layout_constraintTop_toBottomOf="@+id/crime_news_stop_tv" />
 
     <TextView
+        android:id="@+id/list_train_error_message_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text='No trains pass this station at this moment'
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/train_spinner" />
+
+    <TextView
         android:id="@+id/train_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
