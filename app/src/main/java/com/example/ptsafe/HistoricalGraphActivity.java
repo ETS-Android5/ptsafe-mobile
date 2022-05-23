@@ -113,8 +113,6 @@ public class HistoricalGraphActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(HistoricalGraphActivity.this, ListTrainActivity.class);
-        startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
     }
