@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">PTsafe</string>
-    <string name="menu_home">home</string>
-    <string name="menu_detect_crowding">detect crowding</string>
-    <string name="menu_news">news</string>
-    <string name="menu_emergency_call">emergency call</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_detect_crowding">Detect crowding</string>
+    <string name="menu_news">News</string>
+    <string name="menu_emergency_call">Emergency call</string>
     <string name="Open">open</string>
     <string name="Close">close</string>
     <string name="read_more">read more</string>

@@ -57,7 +57,6 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the View for this fragment
         View view = inflater.inflate(R.layout.fragment_news, container, false);
-        getActivity().setTitle("News");
         initView(view);
         getAllNews();
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -110,9 +109,10 @@ public class NewsFragment extends Fragment {
             bundle.putString("newsContent", newsItems.get(position).getNewsContent());
             bundle.putString("imageUrl", newsItems.get(position).getImageUrl());
             bundle.putString("newsUrl", newsItems.get(position).getNewsUrl());
-
             intent.putExtras(bundle);
             startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_in_right,
+                    R.anim.slide_out_left);
         };
     }
 
@@ -122,6 +122,8 @@ public class NewsFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddNewsActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         };
     }

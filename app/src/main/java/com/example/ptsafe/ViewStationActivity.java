@@ -17,8 +17,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,16 +43,22 @@ import com.example.ptsafe.databinding.ActivityViewStationBinding;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -61,6 +71,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
     private GoogleMap mMap;
     private EditText destSearchEt;
     private Spinner inOutSpinner;
+    private ImageView infoIv;
     private ActivityViewStationBinding binding;
     Location currentLocation;
     private LatLng currLocation;
@@ -127,6 +138,21 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                 return false;
             }
         });
+        infoIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                        ViewStationActivity.this, R.style.BottomSheetDialogTheme
+                );
+                View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                        .inflate(
+                                R.layout.bottom_sheet_find_station,
+                                findViewById(R.id.bottom_container)
+                        );
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
+            }
+        });
     }
     
     @Override
@@ -165,6 +191,8 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
         bundle.putString("destinationAddress", destSearchEt.getText().toString());
         intent.putExtras(bundle);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
     }
 
     private void getCurrentLocation() {
@@ -249,22 +277,38 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
         return p1;
     }
 
-    private void addStationsMarkerToHashMap (List<NearestStops> stopsData) {
+    private void includeMarkers(List<NearestStops> stopsData, int selectedIndex) {
         int index = 0;
         for (NearestStops stop: stopsData) {
             LatLng coordinate = new LatLng(stop.getStopLat(), stop.getStopLong());
             BitmapDescriptor markerColor = BitmapDescriptorFactory
                     .defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
-            if (index != 0) {
+            if (index != selectedIndex) {
                 markerColor = BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
             }
             Marker marker = mMap.addMarker(new MarkerOptions().
                     position(coordinate).title(stop.getStopName())
-                    .snippet("Crowdedness per platform: " + stop.getCrowdednessDensity() + ", Police stations: " + stop.getTotalPoliceStations())
+                    .snippet("Crowdedness: " + stop.getCrowdednessDensity() + ", Police stations: " + stop.getTotalPoliceStations() + ", CRI: " + stop.getCrimeRateIndex())
                     .icon(markerColor));
             stationMarkers.put(marker.getId(), stop.getStopId());
             index++;
+        }
+    }
+
+    private void addStationsMarkerToHashMap (List<NearestStops> stopsData) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Australia/Sydney"));
+        Date currentLocalTime = cal.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss") ;
+        try {
+            if(dateFormat.parse(dateFormat.format(currentLocalTime)).after(dateFormat.parse("18:00:00")) || dateFormat.parse(dateFormat.format(currentLocalTime)).before(dateFormat.parse("07:00:00"))) {
+               includeMarkers(stopsData, 1);
+            }
+            else {
+                includeMarkers(stopsData, 0);
+            }
+        } catch (ParseException e) {
+            includeMarkers(stopsData, 0);
         }
     }
 
@@ -305,9 +349,13 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
                         float stopLong = (float) obj.getDouble("stop_lon");
                         float crowdednessDensity = (float) obj.getDouble("crowdedness_density");
                         int totalPoliceStation = obj.getInt("total_police_station");
+                        float crimeRateIndex = (float) obj.getDouble("crime_rate_index");
                         float distanceInKm = (float) obj.getDouble("distance_in_km");
-                        NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, crowdednessDensity, totalPoliceStation, distanceInKm);
-                        nearestStops.add(newStop);
+                        NearestStops newStop = new NearestStops(stopId, stopName, stopLat, stopLong, crowdednessDensity, totalPoliceStation, crimeRateIndex, distanceInKm);
+                        //todo: ban several stops that are not covered in the scenario
+                        if (newStop.getStopId() != 19942) {
+                            nearestStops.add(newStop);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -344,6 +392,7 @@ public class ViewStationActivity extends FragmentActivity implements OnMapReadyC
     private void initView() {
         destSearchEt = findViewById(R.id.destination_search_et);
         inOutSpinner = findViewById(R.id.in_out_spinner);
+        infoIv = findViewById(R.id.info_iv);
     }
 
     private void initVar() {

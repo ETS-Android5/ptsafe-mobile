@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_marginBottom="5dp"
-    android:background="@drawable/news_rv_shape"
+    android:background="@color/white_primary"
     android:orientation="horizontal">
 
     <TextView

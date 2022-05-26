@@ -8,7 +8,7 @@
         android:title="@string/menu_detect_crowding"/>
     <item
         android:id="@+id/menu_find_a_station"
-        android:title="my trips"
+        android:title="My trips"
         />
     <item
         android:id="@+id/menu_emergency_call"
@@ -18,6 +18,14 @@
         android:title="@string/menu_news"/>
     <item
         android:id="@+id/menu_meditation"
-        android:title="meditation"
+        android:title="Meditation"
+        />
+    <item
+        android:id="@+id/user_manual"
+        android:title="User manual"
+        />
+    <item
+        android:id="@+id/log_out"
+        android:title="log out"
         />
 </menu>

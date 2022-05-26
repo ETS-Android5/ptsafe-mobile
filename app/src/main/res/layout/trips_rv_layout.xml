@@ -6,47 +6,50 @@
     android:layout_height="320dp"
     android:layout_marginBottom="5dp"
     android:elevation="2dp"
-    android:background="@drawable/news_rv_shape"
+    android:background="@color/white"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/carriage_number_tv"
         android:layout_width="224dp"
         android:layout_height="23dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:elevation="2dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="67dp"
+        android:fontFamily="@font/roboto"
         android:text="carriage number"
         app:layout_constraintEnd_toStartOf="@+id/delete_trip_btn"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/trip_grid_vw"
         app:layout_constraintTop_toBottomOf="@+id/departure_time_trip_tv" />
 
     <TextView
         android:id="@+id/departure_time_trip_tv"
         android:layout_width="224dp"
         android:layout_height="23dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="140dp"
         android:elevation="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="177dp"
+        android:fontFamily="@font/roboto"
         android:text="departure time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/trip_grid_vw"
         app:layout_constraintTop_toBottomOf="@+id/route_name_tv" />
 
     <TextView
         android:id="@+id/destination_name_tv"
-        android:background="@drawable/destination_name_background_shape"
-        android:paddingBottom="2dp"
-        android:elevation="2dp"
-        android:paddingLeft="5dp"
-        android:textColor="@color/white"
         android:layout_width="150dp"
         android:layout_height="0dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="11dp"
+        android:background="@drawable/destination_name_background_shape"
+        android:elevation="2dp"
+        android:fontFamily="@font/roboto"
+        android:paddingLeft="5dp"
+        android:paddingBottom="2dp"
         android:text="Destination"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,6 +63,7 @@
         android:layout_marginEnd="41dp"
         android:background="@drawable/source_name_background_shape"
         android:elevation="2dp"
+        android:fontFamily="@font/roboto"
         android:paddingLeft="5dp"
         android:paddingBottom="2dp"
         android:text="Source"
@@ -72,41 +76,64 @@
     <TextView
         android:id="@+id/route_name_tv"
         android:layout_width="350dp"
-        android:elevation="2dp"
         android:layout_height="23dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:elevation="2dp"
+        android:fontFamily="@font/roboto"
         android:text="route name"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/trip_grid_vw"
         app:layout_constraintTop_toBottomOf="@+id/stop_name_tv" />
 
     <TextView
         android:id="@+id/stop_name_tv"
         android:layout_width="300dp"
-        android:elevation="2dp"
         android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="64dp"
+        android:elevation="2dp"
+        android:fontFamily="@font/roboto"
         android:text="stop name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/trip_grid_vw"
         app:layout_constraintTop_toBottomOf="@+id/source_name_tv" />
 
     <Button
         android:id="@+id/delete_trip_btn"
         android:layout_width="98dp"
-        android:elevation="2dp"
         android:layout_height="45dp"
         android:layout_marginStart="298dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="11dp"
         android:backgroundTint="@color/red_primary"
+        android:elevation="2dp"
+        android:fontFamily="@font/roboto"
         android:text="delete trip"
         android:textColor="@color/white_primary"
         android:textSize="10dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="24dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/destination_name_tv"
+        app:layout_constraintStart_toEndOf="@+id/source_name_tv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow" />
+
+    <View
+        android:id="@+id/trip_grid_vw"
+        android:layout_width="10dp"
+        android:layout_height="319dp"
+        android:background="@color/blue_primary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

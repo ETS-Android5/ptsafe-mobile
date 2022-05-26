@@ -49,6 +49,57 @@
         <activity
             android:name=".ListTrainActivity"
             android:exported="true" />
+        <activity
+            android:name=".FirstScreen"
+            android:exported="true" />
+        <activity
+            android:name=".SecondScreen"
+            android:exported="true" />
+        <activity
+            android:name=".ThirdScreen"
+            android:exported="true" />
+        <activity
+            android:name=".FourthScreen"
+            android:exported="true" />
+        <activity
+            android:name=".FifthScreen"
+            android:exported="true" />
+        <activity
+            android:name=".SixthScreen"
+            android:exported="true" />
+        <activity
+            android:name=".SeventhScreen"
+            android:exported="true" />
+        <activity
+            android:name=".EightScreen"
+            android:exported="true" />
+        <activity
+            android:name=".NinthScreen"
+            android:exported="true" />
+        <activity
+            android:name=".TenthScreen"
+            android:exported="true" />
+        <activity
+            android:name=".EleventhScreen"
+            android:exported="true" />
+        <activity
+            android:name=".TwelveScreen"
+            android:exported="true" />
+        <activity
+            android:name=".ThirteenthScreen"
+            android:exported="true" />
+        <activity
+            android:name=".FourteenScreen"
+            android:exported="true" />
+        <activity
+            android:name=".FifteenScreen"
+            android:exported="true" />
+        <activity
+            android:name=".SixteenScreen"
+            android:exported="true" />
+        <activity
+            android:name=".SeventeenScreen"
+            android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

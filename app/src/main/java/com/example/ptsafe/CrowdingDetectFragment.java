@@ -70,7 +70,6 @@ public class CrowdingDetectFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the View for this fragment
         View view = inflater.inflate(R.layout.fragment_crowding_detect, container, false);
-        getActivity().setTitle("Detect crowding");
         initView(view);
         mPermissionResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
             @Override

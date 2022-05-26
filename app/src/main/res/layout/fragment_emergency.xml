@@ -4,17 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#BD1515"
+    android:background="@color/grey_primary"
     tools:context="HomeFragment">
+
+    <TextView
+        android:id="@+id/emergency_call_label"
+        android:layout_width="275dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="123dp"
+        android:fontFamily="@font/roboto"
+        android:text="Emergency calls"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/emergency_rv"
-        android:layout_width="403dp"
-        android:layout_height="666dp"
+        android:layout_width="401dp"
+        android:layout_height="630dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/emergency_call_label" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
